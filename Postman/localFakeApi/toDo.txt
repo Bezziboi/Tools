@@ -1,0 +1,44 @@
+1) Fake API Creation & Requests
+2) postman variables
+3) workflows
+How to create own API's(Fake API's)
+----------------------------------
+1) Install NodeJS
+ Donwload link: https://nodejs.org/en/download/
+ After installation give below command:
+  node -version
+2) npm (comes with node.js)
+ check version: 
+  npm --version
+3) install json-server
+ npm install -g json-server
+4) create info.json file with sample data(json format)
+ Loc: C:\Users\admin\info.json
+5) Run the below command to make your API's up and running.
+ json-server info.json
+ 
+GET    http://localhost:3000/users
+GET    http://localhost:3000/users/1
+POST   http://localhost:3000/users
+PUT    http://localhost:3000/users/4
+DELETE http://localhost:3000/users/4
+
+Postman Variables
+------------------
+1) Collection variables
+2) Environment variables/Global variables
+
+Collection variables
+ Right click on -- Collection - Edit - Variables - Define varaibles (Key,value)- Update
+ Usage: {{Key}}
+ 
+(Or) postman.setGlobalVariable("key","value");
+  postman.clearGlobalVariable("key");
+
+Environment variables/Global variables
+ Manage Environments - Global-Key,Value-Save
+ Usage: {{Key}}
+WorkFlows
+--------------------
+postman.setNextRequest("Request Name");
+postman.setNextRequest("null")
