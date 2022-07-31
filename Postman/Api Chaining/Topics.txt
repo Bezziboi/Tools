@@ -1,0 +1,21 @@
+How To Chain API Requests
+===========================
+
+1) Create Get Request (Listing all users)
+ https://reqres.in/api/users?page=2
+ 
+2) Create Global variable "username" is xyz at collection level
+ 
+3) Write Test script in Request1 to update  "username"
+
+jsonData=JSON.parse(responseBody)
+value=jsonData.data[0].first_name
+pm.globals.set("username", value);
+
+4) Create Put Request (Update user by Name)
+ https://reqres.in/api/users/2
+
+5) Parameterize username varaible in to 2nd request(PUT)
+ "name": "{{username}}"
+ 
+6) Run Collection which contains both the requests

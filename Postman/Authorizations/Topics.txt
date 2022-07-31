@@ -1,0 +1,14 @@
+Authorizations
+---------------
+1) Basic Auth:
+https://postman-echo.com/basic-auth
+ username: postman
+ password: password
+
+2) API Key Auth
+Get Request: https://api.openweathermap.org/data/2...
+API Key/appid: fe9c5cddb7e01d747b4611c3fc9eaf2c
+
+3) Bearer Token / OAuth 2.0
+API Reference URL: https://developer.github.com/v3/repos/
+Post Request: https://api.github.com/user/repos
