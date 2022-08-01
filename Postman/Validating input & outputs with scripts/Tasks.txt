@@ -1,0 +1,46 @@
+1. 
+(MANDATORY AND IMPORTANT TASK) 
+http://162.55.220.72:5005/user_info_2
+It is necessary to test the API of this endpoint to validate the input parameters. 
+The essence of the task: 
+To check the validations of each field supplied to the endpoint for possible values. 
+We will CONDITIONALLY assume that a negative check should return any status BUT NOT 200! 
+Your task is to write test cases in postman in such a way that one negative check is one request,
+positive checks can be combined into 1. 
+Your task is to test based on the requirements for all possible aspects. In each request, 
+test ONLY FOR STATUS CODE (200 - positive value, not 200 - negative). 
+P.S. THE TASK DOES NOT IMPLIED THAT THE ENDPOINT WORKS ACCORDING TO THE WRITTEN REQUIREMENTS. 
+WE LEARN TO WRITE TESTS FOR API! Requirements:
+   1) Name: 3-40 characters inclusive, prefix and postfix spaces are prohibited. The field is required
+   2) Age: only integers in the range 18-120 inclusive. The field is required
+   3) Salary: only whole numbers in the range 1-1000000 inclusive. The field is required
+Convert task 1 so that you submit the parameters via a CSV file.
+You will have exactly 1 query in the collection, which will be repeated as many times as there are rows in the CSV file. 
+Also, a function should be written in the tests that checks the validity of the incoming data, 
+and depending on this, checks for a status of 200 or NOT 200.
+
+2. 
+http://162.55.220.72:5007/object_info_4
+Convert items 12-13-14 (salary from request and response are equal) in such a way that the check is performed in a cycle, 
+in which there will be only ONE test. The test name should change depending on the value in Salary
+
+3. 
+http://162.55.220.72:5005/object_info_3
+Convert tasks 5-7 (compare identical fields in the request and response) 
+in such a way that it was done IN ONE TEST (all 3 fields at once) WITHOUT CYCLES! (deep object comparison)
+
+4. 
+http://162.55.220.72:5005/user_info_2
+  1)    Преобразовать задания 8 - 13 (проверить что в json имеется нужный параметр) таким образом, 
+        чтобы все проверки делались в цикле (1 проверка в цикле, в которую попадают нужные параметры). 
+        Название теста должно видоизменяться исходя из подаваемых данных. ( ${}  или другим способом)
+
+  2)**  Преобразовать задания 14 - 18 (проверить что параметр равен salary умножить на коэффициент) таким образом, 
+        чтобы все проверки делались в цикле (1 проверка в цикле, в которую попадают нужные параметры). 
+        Название теста должно видоизменяться исходя из подаваемых данных. ( ${}  или другим способом)
+
+  3)*** Преобразовать описанные выше задания 1 и 2 для данного эндпоинта в ОДИН ЦИКЛ, 
+        в котором будут проходить ОБА теста.
+
+
+

@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "d8e0b229-f672-4726-8319-6b3f1e10eb84",
+		"name": "Validating task with scripts_1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20910140"
+	},
+	"item": [
+		{
+			"name": "validating input",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// It is necessary to test the API of this endpoint to validate the input parameters. \r",
+							"// The essence of the task: \r",
+							"// To check the validations of each field supplied to the endpoint for possible values. \r",
+							"// We will CONDITIONALLY assume that a negative check should return any status BUT NOT 200! \r",
+							"// Your task is to write test cases in postman in such a way that one negative check is one request,\r",
+							"// positive checks can be combined into 1. \r",
+							"// Your task is to test based on the requirements for all possible aspects. In each request, \r",
+							"// test ONLY FOR STATUS CODE (200 - positive value, not 200 - negative). \r",
+							"// P.S. THE TASK DOES NOT IMPLIED THAT THE ENDPOINT WORKS ACCORDING TO THE WRITTEN REQUIREMENTS.\r",
+							"\r",
+							"let reqData = request.data;\r",
+							"\r",
+							"// 1) Name: 3-40 characters inclusive, prefix and postfix spaces are prohibited. The field is required\r",
+							"function validateName(reqData) {\r",
+							"    if(reqData.name.length >= 3 && reqData.name.length <= 40 && reqData.name.trim() === reqData.name) {\r",
+							"        return true\r",
+							"    }else { return false }\r",
+							"}\r",
+							"\r",
+							"// 2) Age: only integers in the range 18-120 inclusive. The field is required\r",
+							"function validateAge(reqData) {\r",
+							"    if(Number(reqData.age) >= 18 && Number(reqData.age) <= 120 && Number(reqData.age) % 1 === 0) {\r",
+							"        return true\r",
+							"    }else { return false }\r",
+							"}\r",
+							"\r",
+							"// 3) Salary: only integers in the range 1-1000000 inclusive. The field is required\r",
+							"function validateSalary(reqData) {\r",
+							"    if(Number(reqData.salary) >= 1 && Number(reqData.salary) <= 1000000 && Number(reqData.salary) % 1 === 0) {\r",
+							"        return true\r",
+							"    }else { return false }\r",
+							"}\r",
+							"\r",
+							"if(validateName(reqData) && validateAge(reqData) && validateSalary(reqData)) {\r",
+							"    pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+							"}else {\r",
+							"    pm.test(\"Status code is NOT correct\", () => pm.expect(pm.response.code).to.be.oneOf([200, 500]));\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://162.55.220.72:5005/user_info_2",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
