@@ -1,0 +1,41 @@
+Topics:
+-------------
+1) Postman Scripting/ Response Validations
+2) Script Execution Order
+3) Single/Multipart Files Upload & Download.
+
+Notes:
+-------------
+Pre-Request Script  -- Request--Response- Test Script
+
+Collection
+    Folder
+         Requests
+
+Postman Scripting using JavaScript and Chai BDD
+------------------------------------------------
+Reference Link : https://learning.postman.com/docs/wri...
+
+File Upload /Download using Rest API 
+---------------------------------
+Demo App: https://github.com/pavanoltraining/sp...
+Pre-Requisite: Install Java & Maven on Windows
+1) Open Windows Command Prompt and Open Directory:
+2) Run Below commands:
+java jar target/file-demo-0.0.1-SNAPSHOT.jar
+
+App URL: http://localhost:8080
+
+Single File Upload:
+--------
+POST: http://localhost:8080/uploadFile
+
+Multiple File Uploads
+-------------
+POST: http://localhost:8080/uploadMultipleFiles
+
+Download File
+---------
+GET: http://localhost:8080/downloadFile/TestFile1.txt
+
+==================================================

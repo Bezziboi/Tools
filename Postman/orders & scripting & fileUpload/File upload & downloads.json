@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "521d15de-cb11-47a6-8d5c-6d98b5eb2e4e",
+		"name": "File upload & downloads",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20910140"
+	},
+	"item": [
+		{
+			"name": "singleFileUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response\", function () {\r",
+							"    responseJson = pm.resopnse.json();\r",
+							"    pm.expect(responseJson.fileName).to.eql(\"Topics.txt\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Meylis/OneDrive/Рабочий стол/git bash/Tools/Postman/orders & scripting & fileUpload/Topics.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/uploadFile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uploadFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "multiplefFileUpdate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response\", function () {\r",
+							"    responseJson = pm.resopnse.json();\r",
+							"    pm.expect(responseJson[0].fileName).to.eql(\"orderOfExecution.json\");\r",
+							"    pm.expect(responseJson[1].fileName).to.eql(\"postmanScripting.json\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/C:/Users/Meylis/OneDrive/Рабочий стол/git bash/Tools/Postman/orders & scripting & fileUpload/orderOfExecution.json",
+								"/C:/Users/Meylis/OneDrive/Рабочий стол/git bash/Tools/Postman/orders & scripting & fileUpload/postmanScripting.json"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/uploadMultipleFiles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uploadMultipleFiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "downloadFile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify text value\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Topics\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/downloadFile/Topics.txt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"downloadFile",
+						"Topics.txt"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
