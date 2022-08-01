@@ -2,5 +2,5 @@
 
 <h3>Postman</h3>
 <a href="https://www.postman.com/bezziboi">
--view all Postman collections in postman-
+-view all postman collections in Postman-
 </a>
