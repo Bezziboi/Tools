@@ -31,16 +31,13 @@ in such a way that it was done IN ONE TEST (all 3 fields at once) WITHOUT CYCLES
 
 4. 
 http://162.55.220.72:5005/user_info_2
-  1)    Преобразовать задания 8 - 13 (проверить что в json имеется нужный параметр) таким образом, 
-        чтобы все проверки делались в цикле (1 проверка в цикле, в которую попадают нужные параметры). 
-        Название теста должно видоизменяться исходя из подаваемых данных. ( ${}  или другим способом)
+ 1)     Convert tasks 8 - 13 (check that json has the required parameter) in this way,
+        so that all checks are done in a cycle (1 check in a cycle, which includes the necessary parameters).
+        The name of the test should be modified based on the submitted data. ( ${} or some other way)
 
-  2)**  Преобразовать задания 14 - 18 (проверить что параметр равен salary умножить на коэффициент) таким образом, 
-        чтобы все проверки делались в цикле (1 проверка в цикле, в которую попадают нужные параметры). 
-        Название теста должно видоизменяться исходя из подаваемых данных. ( ${}  или другим способом)
+ 2)**   Convert tasks 14 - 18 (check that the parameter is equal to salary multiplied by the coefficient) in such a way that
+        so that all checks are done in a cycle (1 check in a cycle, which includes the necessary parameters).
+        The name of the test should be modified based on the submitted data. ( ${} or some other way)
 
-  3)*** Преобразовать описанные выше задания 1 и 2 для данного эндпоинта в ОДИН ЦИКЛ, 
-        в котором будут проходить ОБА теста.
-
-
-
+  3)*** Convert the tasks 1 and 2 described above for this endpoint to ONE CYCLE,
+        where BOTH tests will take place.
