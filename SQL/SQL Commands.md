@@ -62,7 +62,7 @@ Example:
   INSERT INTO STUDENT VALUES(103, 'BATYR', NULL);
   ```
  
-  <h2 align="center">Selecting Rows from a table</h2>
+<h2 align="center">Selecting Rows from a table</h2>
   
   ```sql
   USE hr;
@@ -99,3 +99,30 @@ Example:
 - ```DATETIME``` -->	A date and time combination. Format: YYYY-MM-DD hh:mm:ss. The supported range is from '1000-01-01 00:00:00' to '9999-12-31 23:59:59'
 - ```TIMESTAMP``` -->	A timestamp. Format: YYYY-MM-DD hh:mm:ss. The supported range is from '1970-01-01 00:00:01' UTC to '2038-01-09 03:14:07' UTC
 - ```TIME``` -->	A time. Format: hh:mm:ss. The supported range is from '-838:59:59' to '838:59:59'
+
+<h2 align="center">Where clause</h2>
+
+Used for selecting the rows based on condition. (Filtering the rows using where condition)
+
+```sql
+USE hr;
+
+SELECT * FROM EMPLOYEES;
+SELECT * FROM EMPLOYEES WHERE SALARY > 8000;
+SELECT * FROM EMPLOYEES WHERE SALARY <= 5000;
+SELECT * FROM EMPLOYEES WHERE DEPARTMENT_ID = 30;
+SELECT * FROM EMPLOYEES WHERE COMMISSION_PCT is null;
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME = 'Jennifer';
+SELECT DISTINCT DEPARTMENT_ID FROM EMPLOYEES;
+SELECT DISTINCT * FROM EMPLOYEES;
+```
+
+
+
+
+
+
+
+
+
+
