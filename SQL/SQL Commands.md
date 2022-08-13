@@ -117,6 +117,54 @@ SELECT DISTINCT DEPARTMENT_ID FROM EMPLOYEES;
 SELECT DISTINCT * FROM EMPLOYEES;
 ```
 
+<h2 align="center">Logical Operators (AND, OR, NOT)</h2>
+
+```sql
+USE hr;
+
+SELECT * FROM EMPLOYEES WHERE SALARY > 15000 AND JOB_ID = 'AD_VP';
+SELECT * FROM EMPLOYEES WHERE SALARY > 15000 OR JOB_ID = 'AD_VP';
+SELECT * FROM EMPLOYEES WHERE NOT FIRST_NAME = 'David';
+```
+
+<h2 align="center">Between & IN Operators</h2>
+
+- Between --> Used to display the rows which is following in the range of values.
+
+- Not Between
+
+```sql
+USE hr;
+
+SELECT * FROM EMPLOYEES WHERE SALARY BETWEEN 10000 AND 12000;
+SELECT * FROM EMPLOYEES WHERE SALARY NOT BETWEEN 10000 AND 12000;
+```
+
+- In --> In operator return the rows when the values are matching in the list
+
+- Not In
+
+```sql
+SELECT * FROM EMPLOYEES WHERE SALARY = 3400 OR SALARY = 2500 OR SALARY = 3000;
+
+SELECT * FROM EMPLOYEES WHERE SALARY IN(3400, 2500, 3000);
+SELECT * FROM EMPLOYEES WHERE SALARY NOT IN(3400, 2500, 3000);
+```
+
+<h2 align="center">Pattern Matching operators (whiled card characters)</h2>
+
+- % --> many characters
+- _ --> single character
+
+```sql
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME LIKE 'S%';
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME LIKE '%r';
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME LIKE 'S%r';
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME LIKE '%m%';
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME NOT LIKE 'S%';
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME LIKE '%e_';
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME LIKE '___';
+```
 
 
 
