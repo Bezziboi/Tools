@@ -266,28 +266,42 @@ SELECT NOW();
 SELECT SYSDATE();
 ```
 
-```MONTH()```: function returns the month part foragiven date(anumber from1to 12).
+```MONTH()```: function returns the month part for a given date (a number from 1 to 12).
 ```sql
 SELECT MONTH("2019-05-19");  --5
 ```
 
-```YEAR()```: function returns the year part foragiven date(anumber from 1000 to 9999).
+```YEAR()```: function returns the year part for a given date (a number from 1000 to 9999).
 ```sql
 SELECT YEAR("2019-05-19");   -- 2019
 ```
-```DAY()```: function returns the day of the month foragiven date(anumber from1to 31).
+```DAY()```: function returns the day of the month for a given date (a number from 1 to 31).
 ```sql
 SELECT DAY("2019-05-19");
 ```
 
+#### Queries on Date Functions
 
+Display employees who are joined in 1987.
+```sql
+SELECT * FROM EMPLOYEES WHERE YEAR(HIRE_DATE)="1987";
+```
 
+Display employees who are joined in June.
+```sql
+SELECT * FROM EMPLOYEES WHERE MONTH(HIRE_DATE) = '6';
+SELECT * FROM EMPLOYEES WHERE MONTHNAME(HIRE_DATE) = 'JUNE';
+```
 
+### 4) Aggregate functions - operate on all of the data types and produce summarized result sets
 
+Aggregate Functions are all about performing calculations on multiple rows of a single column of a table and returning a single value.
+```sql
+USE hr;
 
-4) Aggregate functions - operate on all of the data types and produce summarized result sets
-
-
-
-
-
+SELECT AVG(SALARY) FROM EMPLOYEES;  --returns average value
+SELECT SUM(SALARY) FROM EMPLOYEES;  --returns summary   
+SELECT MIN(SALARY) FROM EMPLOYEES;  --returns minumum value
+SELECT MAX(SALARY) FROM EMPLOYEES;  --returns maximum value
+SELECT COUNT(*) FROM EMPLOYEES;    
+```
