@@ -166,9 +166,126 @@ SELECT * FROM EMPLOYEES WHERE FIRST_NAME LIKE '%e_';
 SELECT * FROM EMPLOYEES WHERE FIRST_NAME LIKE '___';
 ```
 
+<h2 align="center">MySQL Functions</h2>
+
+### 1) Strings functions - operate on string data types
+
+```Upper()```: converts into upper case letters.
+```sql
+SELECT UPPER(First_name) FROM employees;
+```
+
+```Lower()```: converts into lower case letters.
+```sql
+SELECT LOWER(First_name) FROM employees;
+```
+
+```Length()```: return the length of string.
+```sql
+SELECT LENGTH('bezzi');
+SELECT * FROM EMPLOYEES WHERE LENGTH(First_name) = 4;
+```
+```TRIM()```: removes the specified characters from both sides.
+```sql
+SELECT TRIM('   bezzii   ');
+SELECT TRIM('g' from 'ggbezziigg');
+```
+```NSTR()```: returns the position of the character within a string.
+```sql
+SELECT INSTR('bezzii','e');
+```
+
+```SUBSTR()```/```SUBSTRING()```: Returns the substring of the string.
+```sql
+SELECT SUBSTR('bezzii',2,3);   --ezz
+SELECT SUBSTR('bezzii',3,3);   --zzi
+SELECT SUBSTR('bezzii',4,3);   --zii
+
+SELECT SUBSTRING('bezzii',2,3);   --ezz
+SELECT SUBSTRING('bezzii',3,3);   --zzi
+SELECT SUBSTRING('bezzii',4,3);   --zii
+
+USE hr;
+SELECT SUBSTR(FIRST_NAME, 1, 3) FROM EMPLOYEES;
+```
+
+```CONCAT()```: To join two strings.
+```sql
+SELECT CONCAT('bez', 'zii');
+
+USE hr;
+SELECT CONCAT(First_name, Last_name) fullName FROM EMPLOYEES;
+```
+
+### 2) Numeric functions - operate on numeric data types
+
+```sql
+SELECT ABS(-40);    --40
+SELECT ABS(+40);    --40
+SELECT SQRT(25);    --5
+SELECT MOD(10, 3);   --1
+SELECT power(2, 5);  --32
+```
+
+```TRUNCATE()```: function truncates a number to the specified number of decimal places.
+```sql
+SELECT TRUNCATE(40.1234, 3);     -- 40.123
+SELECT TRUNCATE(40.1234, 2);     -- 40.12
+SELECT TRUNCATE(6876, -1);       -- 6870
+SELECT TRUNCATE(6876, -2);       -- 6800
+SELECT TRUNCATE(68763456, -5);   -- 68700000
+```
+
+```GREATEST()``` & ```LEAST()```: returns greatest,least values in the provided values.
+```sql
+SELECT GREATEST(100, 200, 300, 400, 500);  --500
+SELECT LEAST(100, 200, 300, 400, 500);     --100
+```
+
+### 3) Date functions - operate on date data types
+
+```CURDATE()``` / ```CURRENT_DATE()```: function returns the current date.
+```sql
+SELECT CURDATE();
+SELECT CURRENT DATE();
+```
+
+```CURTIME()``` / ```CURRENT_TIME()```: function returns the current time.
+```sql
+SELECT CURTIME();
+SELECT CURRENT_TIME();
+```
+
+```NOW()```: function returns the current date and time.
+```sql
+SELECT NOW();
+```
+
+```SYSDATE()```: function returns the current date and time.
+```sql
+SELECT SYSDATE();
+```
+
+```MONTH()```: function returns the month part foragiven date(anumber from1to 12).
+```sql
+SELECT MONTH("2019-05-19");  --5
+```
+
+```YEAR()```: function returns the year part foragiven date(anumber from 1000 to 9999).
+```sql
+SELECT YEAR("2019-05-19");   -- 2019
+```
+```DAY()```: function returns the day of the month foragiven date(anumber from1to 31).
+```sql
+SELECT DAY("2019-05-19");
+```
 
 
 
+
+
+
+4) Aggregate functions - operate on all of the data types and produce summarized result sets
 
 
 
