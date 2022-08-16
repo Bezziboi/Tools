@@ -347,7 +347,7 @@ SELECT * FROM EMPLOYEES ORDER BY SALARY;
 
 <h2 align="center">Order Of Execution</h2>
 
-Where->Group by->Having->Order By
+Where --> Group by --> Having --> Order By
 ```
 SELECT column-names
  FROM table-name
