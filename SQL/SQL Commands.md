@@ -305,3 +305,66 @@ SELECT MIN(SALARY) FROM EMPLOYEES;  --returns minumum value
 SELECT MAX(SALARY) FROM EMPLOYEES;  --returns maximum value
 SELECT COUNT(*) FROM EMPLOYEES;    
 ```
+
+
+<h2 align="center">Group By clause</h2>
+
+Group By clause:
+
+The GROUP BY clause groups records into summary rows.
+
+GROUP BY returns one records for each group.
+
+GROUP BY typically also involves aggregates: COUNT, MAX, SUM, AVG, etc.
+
+GROUP BY can group by one or more columns.
+```sql
+SELECT DEPARTMENT_ID, SUM(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+SELECT DEPARTMENT_ID, AVG(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+SELECT DEPARTMENT_ID, MAX(SALARY), MIN(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+SELECT JOB_ID, COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID;
+```
+
+All the columns in the select list should include in group by clause.
+```sql
+SELECT DEPARTMENT_ID, JOB_ID, SUM(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID, JOB_ID;
+SELECT DEPARTMENT_ID, SUM(SALARY), FIRST_NAME FROM EMPLOYEES GROUP BY DEPARTMENT_ID;  -- Invalid query
+```
+
+<h2 align="center">Having & Order by clause</h2>
+
+Having clause:Having clause is used to filter the output from the group by clause.
+```sql
+SELECT DEPARTMENT_ID, SUM(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID HAVING SUM(SALARY) > 20000;
+SELECT DEPARTMENT_ID, SUM(SALARY) FROM EMPLOYEES WHERE DEPARTMENT_ID <> 50 GROUP BY DEPARTMENT_ID;
+```
+Order By clause:Order by clause is used to arrange the rows inatable(ascending or descending
+order).
+```sql
+SELECT * FROM EMPLOYEES ORDER BY DEPARTMENT_ID DESC;
+SELECT * FROM EMPLOYEES ORDER BY SALARY;
+```
+
+<h2 align="center">Order Of Execution</h2>
+
+Where->Group by->Having->Order By
+```
+SELECT column-names
+ FROM table-name
+  WHERE condition
+    GROUP BY column-names
+       Having condition
+        ORDER BY column-names
+```
+```sql
+SELECT DEPARTMENT_ID, SUM(SALARY) FROM EMPLOYEES 
+ GROUP BY DEPARTMENT_ID 
+ HAVING SUM(SALARY) > 20000 
+ ORDER BY SUM(SALARY);
+
+SELECT DEPARTMENT_ID, SUM(SALARY) FROM EMPLOYEES 
+ WHERE DEPARTMENT_ID <> 100 
+ GROUP BY DEPARTMENT_ID 
+ HAVING SUM(SALARY) > 20000 
+ ORDER BY SUM(SALARY) DESC;
+```
