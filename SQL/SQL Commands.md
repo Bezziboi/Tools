@@ -368,3 +368,21 @@ SELECT DEPARTMENT_ID, SUM(SALARY) FROM EMPLOYEES
  HAVING SUM(SALARY) > 20000 
  ORDER BY SUM(SALARY) DESC;
 ```
+
+<h2 align="center">UNION & UNION ALL</h2>
+
+The UNION operator is used to combine the result-set of two or more SELECT statements.
+
+Each SELECT statement within UNION must have the same number of columns
+
+The columns must also have similar data types
+
+The columns in each SELECT statement must also be in the same order
+```sql
+SELECT * FROM A;
+SELECT * FROM B;
+
+SELECT NUM FROM A UNION SELECT NUM FROM B;       -- without duplicates 
+SELECT NUM FROM A UNION ALL SELECT NUM FROM B;   -- with duplicates
+```
+
