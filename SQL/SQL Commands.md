@@ -386,3 +386,161 @@ SELECT NUM FROM A UNION SELECT NUM FROM B;       -- without duplicates
 SELECT NUM FROM A UNION ALL SELECT NUM FROM B;   -- with duplicates
 ```
 
+<h2 align="center">SQL Joins</h2>
+
+Joins help retrieving data from two or more database tables.
+
+The tables are mutually related using primary and foreign keys.
+
+Types of Joins
+
+1. Equi Join / Inner Join / Simple Join
+2. Right Join
+3. Left Join
+4. Full Join
+5. Self Join
+
+Inner / Equi join ( Returns Only matched records from Tab1 & Tab2 )
+```sql
+SELECT * FROM TAB1 INNER JOIN TAB2 ON TAB1.NUMID = TAB2.NUMID;
+```
+
+Right outer join ( Returns matched records + unmatched from right table Tab1 )
+```sql
+SELECT * FROM TAB1 RIGHT JOIN TAB2 ON TAB1.NUMID = TAB2.NUMID;
+```  
+Left outer join ( Returns matched records + unmatched from right table Tab2 )
+```sql
+SELECT * FROM TAB1 LEFT JOIN TAB2 ON TAB1.NUMID = TAB2.NUMID;
+```  
+Full outer join ( Returns matched records + unmatched from both tables )  -- not supported in mysql
+```sql
+SELECT * FROM TAB1 FULL JOIN TAB2 ON TAB1.NUMID = TAB2.NUMID;
+```  
+
+#### Inner Join/Self-Join
+
+Returns Only matched records from both the tables
+```sql
+SELECT
+ EMPLOYEE_ID, FIRST_NAME, JOB_ID, DEPT.DEPARTMENT_ID, DEPARTMENT_NAME, LOCATION_ID
+FROM EMPLOYEES EMP INNER JOIN DEPARTMENTS DEPT ON
+ (EMP.DEPARTMENT_ID = DEPT.DEPARTMENT_ID);
+```
+
+#### Left Join
+
+Returns matched records+unmatched from left table departments
+```sql
+SELECT EMPLOYEE_ID, FIRST_NAME, JOB_ID, DEPT.DEPARTMENT_ID, DEPARTMENT_NAME, LOCATION_ID
+FROM EMPLOYEES EMP LEFT JOIN DEPARTMENTS DEPT 
+ ON (EMP.DEPARTMENT_ID = DEPT.DEPARTMENT_ID);
+```
+
+#### Right Join
+
+Returns matched records + unmatched from right table employees
+```sql
+SELECT EMPLOYEE_ID, FIRST_NAME, JOB_ID, DEPT.DEPARTMENT_ID, DEPARTMENT_NAME, LOCATION_ID
+FROM EMPLOYEES EMP RIGHT JOIN DEPARTMENTS DEPT 
+ ON (EMP.DEPARTMENT_ID = DEPT.DEPARTMENT_ID);
+```
+
+#### Inner Join/Self-Join
+
+Returns Only matched records from both the tables
+```sql
+SELECT EMPLOYEE_ID, FIRST_NAME, JOB_ID, DEPT.DEPARTMENT_ID, DEPARTMENT_NAME, LOCATION_ID
+FROM EMPLOYEES EMP INNER JOIN DEPARTMENTS DEPT 
+ ON (EMP.DEPARTMENT_ID = DEPT.DEPARTMENT_ID);
+```
+
+#### Self-Join
+
+Join withatable with the same table
+
+Query : Print Employees details who is Manager of other employees.
+```sql
+SELECT E.EMPLOYEE_ID, M.MANAGER_ID, E.FIRST_NAME, E.JOB_ID, M.FIRST_NAME 
+FROM EMPLOYEES E, EMPLOYEES M WHERE EMPLOYEE_ID = M.MANAGER_ID;
+```
+
+<h2 align="center">Sub Queries</h2>
+
+Sub Query isaQuery withinaQuery.
+
+Sub Query contains2parts.
+
+1. Outer Query
+2. Inner Query
+ 
+The output of inner query is become input of outer query.
+
+2 Types of Sub Queries :
+
+1. Single row sub query, <=, >=, !=
+2. Multi row Sub Query. IN, ANY, ALL
+
+
+#### Single Row Sub Queries
+
+```sql
+-- Display employees whose salary is less than the of Ellen's Salary
+
+SELECT SALARY FROM EMPLOYEES WHERE FIRST_NAME = 'Ellen';  -- 11000.00
+SELECT SALARY FROM EMPLOYEES WHERE SALARY < 11000.00;
+
+SELECT SALARY FROM EMPLOYEES WHERE SALARY < ( SELECT SALARY FROM EMPLOYEES WHERE FIRST_NAME = 'Ellen' );
+```
+
+```sql
+-- 2nd max salary from employee
+
+SELECT MAX(SALARY) FROM EMPLOYEES WHERE SALARY <
+    ( SELECT MAX(SALARY) FROM EMPLOYEES WHERE SALARY );
+    
+-- 3nd max salary from employee
+
+SELECT MAX(SALARY) FROM EMPLOYEES WHERE SALARY <
+    ( SELECT MAX(SALARY) FROM EMPLOYEES WHERE SALARY <
+            ( SELECT MAX(SALARY) FROM EMPLOYEES ) );
+            
+-- Find the salary of employees whose salary is greater than the salary of employee whose EMPLOYEE_ID 150
+
+SELECT SALARY FROM EMPLOYEES WHERE SALARY > ( SELECT SALARY FROM EMPLOYEES WHERE EMPLOYEE_ID = 150);
+
+-- Display the employees who all are earning the highest salary
+
+SELECT * FROM EMPLOYEES WHERE SALARY = ( SELECT MAX(SALARY) FROM EMPLOYEES );
+```
+
+#### Multi row Sub Queries
+
+```sql
+-- Display employees whose salary is equal to the salary of the at least one employee in department id 30
+
+SELECT * FROM EMPLOYEES WHERE SALARY IN ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 30 );
+
+-- Display the employees whose salary is greater than the at least on employee in department id 30
+
+SELECT * FROM EMPLOYEES WHERE SALARY > ANY ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 30 );
+
+-- Display the employees whose salary is less than the at least on employee in department id 30
+
+SELECT * FROM EMPLOYEES WHERE SALARY < ANY ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 30 );
+
+-- Query to get department name of the employee
+
+SELECT FIRST_NAME, EMPLOYEE_ID, DEPARTMENT_ID, 
+ ( SELECT DEPARTMENT_NAME FROM DEPARTMENTS WHEREEMPLOYEES.DEPARTMENT_ID = DEPARTMENTS.DEPARTMENT_ID ) DNAME
+FROM EMPLOYEES;
+
+-- List out the employees who are having salary less than the maximum salary and also having hire
+-- date greater than the hire date of an employee who is having maximum salary
+
+SELECT EMPLOYEE_ID, FIRST_NAME SALARY, HIRE_DATE FROM EMPLOYEES WHERE SALARY <
+  ( SELECT MAX(SALARY) FROM EMPLOYEES ) AND HIRE_DATE >
+     ( SELECT HIRE_DATE FROM EMPLOYEES WHERE SALARY =
+        ( SELECT MAX(SALARY) FROM EMPLOYEES ) );
+```
+
