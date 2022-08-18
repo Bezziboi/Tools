@@ -544,3 +544,135 @@ SELECT EMPLOYEE_ID, FIRST_NAME SALARY, HIRE_DATE FROM EMPLOYEES WHERE SALARY <
         ( SELECT MAX(SALARY) FROM EMPLOYEES ) );
 ```
 
+<h2 align="center">Integrity Constraints</h2>
+
+SQL constraints are used to specify rules for data inatable.
+
+Constraints can be specified when the table is created with the CREATE TABLE statement,or after the table is created with the ALTER TABLE statement.
+SQL Constraints
+
+- NOT NULL-Ensures thatacolumn cannot haveaNULL value
+
+- UNIQUE-Ensures that all values inacolumn are different
+
+- PRIMARY KEY-Acombination ofaNOT NULL and UNIQUE.Uniquely identifies each row inatable
+
+- FOREIGN KEY-Uniquely identifiesarow/record in another table
+
+- CHECK- Ensures that all values inacolumn satisfiesaspecific condition
+
+- DEFAULT-Setsadefault value foracolumn when no value is specified
+
+#### Not null
+
+NOT NULL: This is a constraint will not accept NULL values into the column.
+
+You can apply NOT NULL on any number of columns
+
+```sql
+CREATE TABLE student
+( no INT(3) NOT NULL, 
+  name VARCHAR(10), 
+  marks INT(3) );
+
+INSERT INTO student VALUES( 101, 'Bezzi', 50 );    -- CORRECT
+INSERT INTO student VALUES( NULL, 'Begli', 70 );  -- ERROR
+```
+
+#### UNIQUE
+
+UNIQUE: this constraint will not accept duplicate values.
+
+This constraint can apply on both column and table level.
+
+Unique constraint column can accept multiple NULLS.
+```SQL
+-- Column Level
+CREATE TABLE student
+( no INT(3) UNIQUE,
+  name VARCHAR(10),
+  marks INT(3) );
+
+-- Table Level
+CREATE TABLE student
+( no INT(3),
+  name VARCHAR(10),
+  marks INT(3),
+  UNIQUE(no) );
+  
+  
+INSERT INTO student VALUES(101, 'Bezzi', 50);     -- CORRECT
+INSERT INTO student VALUES(101, 'Begli', 60);     -- ERROR
+INSERT INTO student VALUES(null, 'Batyr', 80);    -- CORRECT
+INSERT INTO student VALUES(null, 'Dovran', 60);   -- CORRECT
+```
+
+#### Primary Key
+
+PRIMARY KEY: Combination of Unique + Not Null
+
+primary key column will not allow duplicate values and also null values.
+
+primary key constraint can create both column level & table level.
+
+We can create primary key on combination of two columns called as composite primary key.
+
+Composite key can be applied only at table level.
+```sql
+CREATE TABLE student
+( no INT(3) PRIMARY KEY,
+  name VARCHAR(10),
+  marks INT(3) );
+ 
+INSERT INTO student VALUES(101, 'Bezzi', 50);     -- CORRECT
+INSERT INTO student VALUES(101, 'Begli', 60);     -- ERROR
+INSERT INTO student VALUES(null, 'Batyr', 60);    -- ERROR
+```
+
+#### Foreign key constraint
+
+A FOREIGN KEY is a key used to link two tables together.
+
+A FOREIGN KEY is a field ( or collection of fields ) in one table that refers to the PRIMARY KEY in another table.
+
+The table containing the foreign key is called the child table, and the table containing the candidate key is called the referenced or parent table.
+```sql
+-- parent Table
+CREATE TABLE school
+( no INT(3),
+  name VARCHAR(15),
+  marks INT(3),
+  PRIMARY KEY(no) );
+ 
+INSERT INTO school VALUES(101, 'Bezzi', 90);
+INSERT INTO school VALUES(102, 'Begli', 70);
+INSERT INTO school VALUES(103, 'Batyr', 60);
+
+-- child Table
+CREATE TABLE library
+( no INT(3),
+  FOREIGN KEY(no) REFERENCES school(no),
+  book_name VARCHAR(10) );
+
+INSERT INTO library VALUES(102, 'java');       -- CORRECT
+INSERT INTO library VALUES(108, 'c');          -- ERROR
+INSERT INTO library VALUES(null, 'dot net');   -- CORRECT
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
