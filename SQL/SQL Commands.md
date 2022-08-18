@@ -659,17 +659,104 @@ INSERT INTO library VALUES(108, 'c');          -- ERROR
 INSERT INTO library VALUES(null, 'dot net');   -- CORRECT
 ```
 
+#### ON DELETE CASCADE
 
+ON DELETE CASCADE:
 
+Normally, we cannot delete rows from Parent table unless we delete corresponding row from child table.
 
+We can delete the rows from the parent table & corresponding child table row as well ( at sametime ) by using ON DELETE CASCADE option. 
+```sql
+-- parent Table
+CREATE TABLE school
+( no INT(3),
+name VARCHAR(15),
+marks INT(3),
+PRIMARY KEY(no) );
 
+INSERT INTO school VALUES(101, 'Bezzi', 90);
+INSERT INTO school VALUES(102, 'Begli',70);
+INSERT INTO school VALUES(103, 'Batyr', 80);
 
+-- child Table
+CREATE TABLE library
+( no INT(3),
+  FOREIGN KEY(no) REFERENCES school(no) ON DELETE CASCADE,
+  book_name VARCHAR(10) );
 
+INSERT INTO library VALUES(101, 'dot net');
+INSERT INTO library VALUES(102, 'java');
 
+DELETE FROM school WHERE no = 101;   -- CORRECT
+-- One row deleted from parent table and one from child table also deleted
+```
 
+#### Foreign key constraint at table level
 
+```sql
+-- parent Table
+CREATE TABLE school
+( no NUMBER(3),
+  name VARCHAR(15),
+  marks NUMBER(3),
+  PRIMARY KEY(no) );
+  
+INSERT INTO school VALUES(101, 'Bezzi', 50);
+INSERT INTO school VALUES(102, 'Begli', 60);
+INSERT INTO school VALUES(103, 'Batyr', 80);
 
+-- child Table
+CREATE TABLE library
+( rollno int(3),
+  book_name VARCHAR(10),
+  FOREIGN KEY(rollno) REFERENCES school(NO) ON DELETE CASCADE );
 
+INSERT INTO library VALUES(101, 'dot net');
+INSERT INTO library VALUES(102, 'java');
+```
+
+#### Check Constraint
+
+Check constraint is used for allowing to user to enter specific values into column.
+
+```sql
+CREATE TABLE school
+( no INT(5),
+  name VARCHAR(15),
+  marks INT(5)
+  CHECK(marks BETWEEN 50 AND 100) );
+ 
+INSERT INTO student VALUES(101, 'Bezzi', 60);   -- CORRECT
+INSERT INTO student VALUES(101, 'Bezzi', 45);   -- ERROR
+INSERT INTO student VALUES(101, 'Bezzi', 105);  -- ERROR
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+CREATE TABLE loc
+( city VARCHAR(15) CHECK( city IN( 'Mary', 'Bayram-aly', 'Ashgabat') ),
+ country VARCHAR(15),
+ pin INT(8));
+ 
+INSERT INTO loc VALUES('Mary', 'Turkmenistan', 123456);       -- CORRECT
+INSERT INTO loc VALUES('Istanbul', 'Turkey', 644566);         -- ERROR
+INSERT INTO loc VALUES('Ashgabat', 'Turkmenistan', 678445);   -- CORRECT
+```
+
+#### Default Constraint
+
+The DEFAULT constraint is used to provide a default value foracolumn.
+
+The default value will be added to all new records IF no other value is specified.
+
+```sql
+CREATE TABLE orders
+( ID int(5),
+  orderNumber int(5),
+  orderDate datetime DEFAULT now() );
+  
+INSERT INTO Orders(ID, orderNumber) VALUES(101, 2456);
+INSERT INTO Orders(ID, orderNumber) VALUES(102, 2457);
+```
 
 
 
