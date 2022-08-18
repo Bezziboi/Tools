@@ -744,7 +744,7 @@ INSERT INTO loc VALUES('Ashgabat', 'Turkmenistan', 678445);   -- CORRECT
 
 #### Default Constraint
 
-The DEFAULT constraint is used to provide a default value foracolumn.
+The DEFAULT constraint is used to provide a default value for a column.
 
 The default value will be added to all new records IF no other value is specified.
 
@@ -757,9 +757,3 @@ CREATE TABLE orders
 INSERT INTO Orders(ID, orderNumber) VALUES(101, 2456);
 INSERT INTO Orders(ID, orderNumber) VALUES(102, 2457);
 ```
-
-
-
-
-
-
