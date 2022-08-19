@@ -750,10 +750,45 @@ The default value will be added to all new records IF no other value is specifie
 
 ```sql
 CREATE TABLE orders
-( ID int(5),
-  orderNumber int(5),
+( ID INT(5),
+  orderNumber INT(5),
   orderDate datetime DEFAULT now() );
   
 INSERT INTO Orders(ID, orderNumber) VALUES(101, 2456);
 INSERT INTO Orders(ID, orderNumber) VALUES(102, 2457);
 ```
+
+<h2 align="center">AUTO INCREMENT</h2>
+
+Auto Increment is a function that operates on numeric data types. It automatically generates sequential numeric values every time thatarecord is inserted in to a table for a field defined as auto increment.
+```sql
+CREATE TABLE student
+( no INT(5) PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(15),
+  marks INT(5) );
+
+ALTER TABLE student AUTO_INCREMENT = 100;
+
+INSERT INTO student(name, marks) VALUES('X', 60);
+INSERT INTO student(name, marks) VALUES('Y', 45);
+INSERT INTO student(name, marks) VALUES('Z', 105);
+```
+
+<h2 align="center">LIMIT</h2>
+Limit is used to display limited Rows fromatable.
+```sql
+SELECT * FROM employees LIMIT 10;
+SELECT * FROM employees LIMIT 5, 10; 
+```
+
+
+
+
+
+
+
+
+
+
+
+
