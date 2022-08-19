@@ -775,16 +775,46 @@ INSERT INTO student(name, marks) VALUES('Z', 105);
 ```
 
 <h2 align="center">LIMIT</h2>
+
 Limit is used to display limited Rows fromatable.
+
 ```sql
 SELECT * FROM employees LIMIT 10;
 SELECT * FROM employees LIMIT 5, 10; 
 ```
 
+<h2 align="center">Views</h2>
 
+A view is a virtual table based on the result-set of an SQL statement.
 
+A view contains rows and columns, just like a real table. The fields in a view are fields from one or more real tables in the database.
 
+You can add SQL functions, WHERE, and JOIN statements to a view and present the data as if the data were coming from one single table.
 
+Example:
+```sql
+use hr;
+
+-- Creating a view
+CREATE VIEW employees_V1 AS SELECT Employee_ID, First_Name, Salary FROM employees;
+SELECT * FROM employees_V1;
+
+-- Dropping View
+DROP VIEW employees_V1;
+```
+
+<h2 align="center">Index</h2>
+
+Indexes are used to retrieve data from the database very fast.
+
+The users cannot see the indexes,they are just used to speed up searches/queries.
+```sql
+-- Creating Index
+CREATE INDEX idx_employees ON employees(First_Name);
+
+-- Dropping Index
+DROP INDEX idx_employees ON employees;
+```
 
 
 
