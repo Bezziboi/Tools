@@ -816,8 +816,24 @@ CREATE INDEX idx_employees ON employees(First_Name);
 DROP INDEX idx_employees ON employees;
 ```
 
+<h2 align="center">TCL-Commit & Rollback</h2>
+```sql
+SET autocommit = 0;
 
+CREATE TABLE student(id INT(3),name VARCHAR(15) );
 
+INSERT INTO student VALUES(101, 'abc');
+INSERT INTO student VALUES(102, 'abc');
+INSERT INTO student VALUES(103, 'abc');
+
+DELETE FROM student WHERE id = 103;  -- Deletes record temporarily
+
+Rollback;       -- Rollback record
+Commit;         -- Commited delete
+Rollback;
+
+SELECT * FROM student;  -- cannot get deleted record after commit
+```
 
 
 
