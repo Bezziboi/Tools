@@ -15,7 +15,7 @@ The MySQL sample database schema consists of the following tables:
 
 
 <h2 align="center"> <samp> Diagram of a Database </samp></h2>
-<p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187043500-16877f2a-3464-4174-8ddb-8561f6932333.png"> </p>
+<p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187048686-1f7d7b4d-e75b-4b8b-a23b-4b1a8e37c523.png"> </p>
 
 <table class="tg">
 <thead>
