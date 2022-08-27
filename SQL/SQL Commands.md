@@ -544,3 +544,297 @@ SELECT EMPLOYEE_ID, FIRST_NAME SALARY, HIRE_DATE FROM EMPLOYEES WHERE SALARY <
         ( SELECT MAX(SALARY) FROM EMPLOYEES ) );
 ```
 
+<h2 align="center">Integrity Constraints</h2>
+
+SQL constraints are used to specify rules for data inatable.
+
+Constraints can be specified when the table is created with the CREATE TABLE statement,or after the table is created with the ALTER TABLE statement.
+SQL Constraints
+
+- NOT NULL-Ensures thatacolumn cannot haveaNULL value
+
+- UNIQUE-Ensures that all values inacolumn are different
+
+- PRIMARY KEY-Acombination ofaNOT NULL and UNIQUE.Uniquely identifies each row inatable
+
+- FOREIGN KEY-Uniquely identifiesarow/record in another table
+
+- CHECK- Ensures that all values inacolumn satisfiesaspecific condition
+
+- DEFAULT-Setsadefault value foracolumn when no value is specified
+
+#### Not null
+
+NOT NULL: This is a constraint will not accept NULL values into the column.
+
+You can apply NOT NULL on any number of columns
+
+```sql
+CREATE TABLE student
+( no INT(3) NOT NULL, 
+  name VARCHAR(10), 
+  marks INT(3) );
+
+INSERT INTO student VALUES( 101, 'Bezzi', 50 );    -- CORRECT
+INSERT INTO student VALUES( NULL, 'Begli', 70 );  -- ERROR
+```
+
+#### UNIQUE
+
+UNIQUE: this constraint will not accept duplicate values.
+
+This constraint can apply on both column and table level.
+
+Unique constraint column can accept multiple NULLS.
+```SQL
+-- Column Level
+CREATE TABLE student
+( no INT(3) UNIQUE,
+  name VARCHAR(10),
+  marks INT(3) );
+
+-- Table Level
+CREATE TABLE student
+( no INT(3),
+  name VARCHAR(10),
+  marks INT(3),
+  UNIQUE(no) );
+  
+  
+INSERT INTO student VALUES(101, 'Bezzi', 50);     -- CORRECT
+INSERT INTO student VALUES(101, 'Begli', 60);     -- ERROR
+INSERT INTO student VALUES(null, 'Batyr', 80);    -- CORRECT
+INSERT INTO student VALUES(null, 'Dovran', 60);   -- CORRECT
+```
+
+#### Primary Key
+
+PRIMARY KEY: Combination of Unique + Not Null
+
+primary key column will not allow duplicate values and also null values.
+
+primary key constraint can create both column level & table level.
+
+We can create primary key on combination of two columns called as composite primary key.
+
+Composite key can be applied only at table level.
+```sql
+CREATE TABLE student
+( no INT(3) PRIMARY KEY,
+  name VARCHAR(10),
+  marks INT(3) );
+ 
+INSERT INTO student VALUES(101, 'Bezzi', 50);     -- CORRECT
+INSERT INTO student VALUES(101, 'Begli', 60);     -- ERROR
+INSERT INTO student VALUES(null, 'Batyr', 60);    -- ERROR
+```
+
+#### Foreign key constraint
+
+A FOREIGN KEY is a key used to link two tables together.
+
+A FOREIGN KEY is a field ( or collection of fields ) in one table that refers to the PRIMARY KEY in another table.
+
+The table containing the foreign key is called the child table, and the table containing the candidate key is called the referenced or parent table.
+```sql
+-- parent Table
+CREATE TABLE school
+( no INT(3),
+  name VARCHAR(15),
+  marks INT(3),
+  PRIMARY KEY(no) );
+ 
+INSERT INTO school VALUES(101, 'Bezzi', 90);
+INSERT INTO school VALUES(102, 'Begli', 70);
+INSERT INTO school VALUES(103, 'Batyr', 60);
+
+-- child Table
+CREATE TABLE library
+( no INT(3),
+  FOREIGN KEY(no) REFERENCES school(no),
+  book_name VARCHAR(10) );
+
+INSERT INTO library VALUES(102, 'java');       -- CORRECT
+INSERT INTO library VALUES(108, 'c');          -- ERROR
+INSERT INTO library VALUES(null, 'dot net');   -- CORRECT
+```
+
+#### ON DELETE CASCADE
+
+ON DELETE CASCADE:
+
+Normally, we cannot delete rows from Parent table unless we delete corresponding row from child table.
+
+We can delete the rows from the parent table & corresponding child table row as well ( at sametime ) by using ON DELETE CASCADE option. 
+```sql
+-- parent Table
+CREATE TABLE school
+( no INT(3),
+name VARCHAR(15),
+marks INT(3),
+PRIMARY KEY(no) );
+
+INSERT INTO school VALUES(101, 'Bezzi', 90);
+INSERT INTO school VALUES(102, 'Begli',70);
+INSERT INTO school VALUES(103, 'Batyr', 80);
+
+-- child Table
+CREATE TABLE library
+( no INT(3),
+  FOREIGN KEY(no) REFERENCES school(no) ON DELETE CASCADE,
+  book_name VARCHAR(10) );
+
+INSERT INTO library VALUES(101, 'dot net');
+INSERT INTO library VALUES(102, 'java');
+
+DELETE FROM school WHERE no = 101;   -- CORRECT
+-- One row deleted from parent table and one from child table also deleted
+```
+
+#### Foreign key constraint at table level
+
+```sql
+-- parent Table
+CREATE TABLE school
+( no NUMBER(3),
+  name VARCHAR(15),
+  marks NUMBER(3),
+  PRIMARY KEY(no) );
+  
+INSERT INTO school VALUES(101, 'Bezzi', 50);
+INSERT INTO school VALUES(102, 'Begli', 60);
+INSERT INTO school VALUES(103, 'Batyr', 80);
+
+-- child Table
+CREATE TABLE library
+( rollno int(3),
+  book_name VARCHAR(10),
+  FOREIGN KEY(rollno) REFERENCES school(NO) ON DELETE CASCADE );
+
+INSERT INTO library VALUES(101, 'dot net');
+INSERT INTO library VALUES(102, 'java');
+```
+
+#### Check Constraint
+
+Check constraint is used for allowing to user to enter specific values into column.
+
+```sql
+CREATE TABLE school
+( no INT(5),
+  name VARCHAR(15),
+  marks INT(5)
+  CHECK(marks BETWEEN 50 AND 100) );
+ 
+INSERT INTO student VALUES(101, 'Bezzi', 60);   -- CORRECT
+INSERT INTO student VALUES(101, 'Bezzi', 45);   -- ERROR
+INSERT INTO student VALUES(101, 'Bezzi', 105);  -- ERROR
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+CREATE TABLE loc
+( city VARCHAR(15) CHECK( city IN( 'Mary', 'Bayram-aly', 'Ashgabat') ),
+ country VARCHAR(15),
+ pin INT(8));
+ 
+INSERT INTO loc VALUES('Mary', 'Turkmenistan', 123456);       -- CORRECT
+INSERT INTO loc VALUES('Istanbul', 'Turkey', 644566);         -- ERROR
+INSERT INTO loc VALUES('Ashgabat', 'Turkmenistan', 678445);   -- CORRECT
+```
+
+#### Default Constraint
+
+The DEFAULT constraint is used to provide a default value for a column.
+
+The default value will be added to all new records IF no other value is specified.
+
+```sql
+CREATE TABLE orders
+( ID INT(5),
+  orderNumber INT(5),
+  orderDate datetime DEFAULT now() );
+  
+INSERT INTO Orders(ID, orderNumber) VALUES(101, 2456);
+INSERT INTO Orders(ID, orderNumber) VALUES(102, 2457);
+```
+
+<h2 align="center">AUTO INCREMENT</h2>
+
+Auto Increment is a function that operates on numeric data types. It automatically generates sequential numeric values every time thatarecord is inserted in to a table for a field defined as auto increment.
+```sql
+CREATE TABLE student
+( no INT(5) PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(15),
+  marks INT(5) );
+
+ALTER TABLE student AUTO_INCREMENT = 100;
+
+INSERT INTO student(name, marks) VALUES('X', 60);
+INSERT INTO student(name, marks) VALUES('Y', 45);
+INSERT INTO student(name, marks) VALUES('Z', 105);
+```
+
+<h2 align="center">LIMIT</h2>
+
+Limit is used to display limited Rows fromatable.
+
+```sql
+SELECT * FROM employees LIMIT 10;
+SELECT * FROM employees LIMIT 5, 10; 
+```
+
+<h2 align="center">Views</h2>
+
+A view is a virtual table based on the result-set of an SQL statement.
+
+A view contains rows and columns, just like a real table. The fields in a view are fields from one or more real tables in the database.
+
+You can add SQL functions, WHERE, and JOIN statements to a view and present the data as if the data were coming from one single table.
+
+Example:
+```sql
+use hr;
+
+-- Creating a view
+CREATE VIEW employees_V1 AS SELECT Employee_ID, First_Name, Salary FROM employees;
+SELECT * FROM employees_V1;
+
+-- Dropping View
+DROP VIEW employees_V1;
+```
+
+<h2 align="center">Index</h2>
+
+Indexes are used to retrieve data from the database very fast.
+
+The users cannot see the indexes,they are just used to speed up searches/queries.
+```sql
+-- Creating Index
+CREATE INDEX idx_employees ON employees(First_Name);
+
+-- Dropping Index
+DROP INDEX idx_employees ON employees;
+```
+
+<h2 align="center">TCL-Commit & Rollback</h2>
+```sql
+SET autocommit = 0;
+
+CREATE TABLE student(id INT(3),name VARCHAR(15) );
+
+INSERT INTO student VALUES(101, 'abc');
+INSERT INTO student VALUES(102, 'abc');
+INSERT INTO student VALUES(103, 'abc');
+
+DELETE FROM student WHERE id = 103;  -- Deletes record temporarily
+
+Rollback;       -- Rollback record
+Commit;         -- Commited delete
+Rollback;
+
+SELECT * FROM student;  -- cannot get deleted record after commit
+```
+
+
+
+
