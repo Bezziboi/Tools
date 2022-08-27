@@ -450,4 +450,6 @@ The MySQL sample database schema consists of the following tables:
 
 <h2 align="center"> <samp>Test Cases</samp></h2>
 
-<p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187048080-a4c6f44e-ef45-403c-96f7-4240afbd7920.png"> </p>
+
+
+<p align="center"> <a href="https://github.com/Bezziboi/Tools/blob/main/checkLists%20%26%20testCases/SQL%20testCase_1.png" > <img src="https://user-images.githubusercontent.com/106346771/187048080-a4c6f44e-ef45-403c-96f7-4240afbd7920.png"> </a> </p>
