@@ -4,7 +4,6 @@
 
 The MySQL sample database schema consists of the following tables:
 
-
 - ***Customers*** : stores customer’s data.
 - ***Products*** : stores a list of scale model cars.
 - ***ProductLines*** : stores a list of product line categories.
@@ -14,4 +13,6 @@ The MySQL sample database schema consists of the following tables:
 - ***Employees*** : stores all employee information as well as the organization structure such as who reports to whom.
 - ***Offices*** : stores sales office data.
 
-![MySQL-Sample-Database-Schema](https://user-images.githubusercontent.com/106346771/186491536-af26a727-acbe-4cd4-92e9-2aa8cc5c4d26.png)
+
+<h2 align="center"> <samp> Diagram of a Database </samp></h2>
+<p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187043500-16877f2a-3464-4174-8ddb-8561f6932333.png"> </p>
