@@ -979,8 +979,36 @@ delimiter ;
 call GetCustomershipping(112, @shipping);
 select @shipping;
 ```
+ #### Error handling
+```sql
+delimiter //
 
+CREATE PROCEDURE InsertSupplierProduct(IN inSupplierId INT, IN inProductId INT)
 
+ BEGIN
+ 
+     -- exit if the duplicate key occurs
+     DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message;
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message;
+     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+     
+     -- insert a new row into the SupplierProducts
+     INSERT INTO SupplierProducts(supplierid, ,productId) VALUES (inSupplierId, inProductId);
+     
+    -- return the products supplied by the supplier id
+     SELECT COUNT(*) FROM SupplierProducts WHERE supplierId = inSupplierId;
+     
+ END //
+     
+delimiter ;
+
+-- valid 
+call InsertsupplierProduct(1, 1);
+call InsertSupplierProduct(1, 2);
+call InsertSupplierProduct(1, 3);
+-- invalid 
+call InsertsupplierProduct(1, 3); -- error message 'Duplicate keys error encountered'
+```
 
 
 
