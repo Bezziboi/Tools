@@ -519,21 +519,21 @@ SELECT * FROM EMPLOYEES WHERE SALARY = ( SELECT MAX(SALARY) FROM EMPLOYEES );
 ```sql
 -- Display employees whose salary is equal to the salary of the at least one employee in department id 30
 
-SELECT * FROM EMPLOYEES WHERE SALARY IN ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 30 );
+SELECT * FROM employees WHERE SALARY IN ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 30 );
 
 -- Display the employees whose salary is greater than the at least on employee in department id 30
 
-SELECT * FROM EMPLOYEES WHERE SALARY > ANY ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 30 );
+SELECT * FROM employees WHERE SALARY > ANY ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 30 );
 
 -- Display the employees whose salary is less than the at least on employee in department id 30
 
-SELECT * FROM EMPLOYEES WHERE SALARY < ANY ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 30 );
+SELECT * FROM employees WHERE SALARY < ANY ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 30 );
 
 -- Query to get department name of the employee
 
 SELECT FIRST_NAME, EMPLOYEE_ID, DEPARTMENT_ID, 
  ( SELECT DEPARTMENT_NAME FROM DEPARTMENTS WHEREEMPLOYEES.DEPARTMENT_ID = DEPARTMENTS.DEPARTMENT_ID ) DNAME
-FROM EMPLOYEES;
+FROM employees;
 
 -- List out the employees who are having salary less than the maximum salary and also having hire
 -- date greater than the hire date of an employee who is having maximum salary
@@ -807,7 +807,8 @@ DROP VIEW employees_V1;
 
 Indexes are used to retrieve data from the database very fast.
 
-The users cannot see the indexes,they are just used to speed up searches/queries.
+The users cannot see the indexes,they are just used to speed up searches / queries.
+
 ```sql
 -- Creating Index
 CREATE INDEX idx_employees ON employees(First_Name);
@@ -817,6 +818,7 @@ DROP INDEX idx_employees ON employees;
 ```
 
 <h2 align="center">TCL-Commit & Rollback</h2>
+
 ```sql
 SET autocommit = 0;
 
@@ -834,6 +836,150 @@ Rollback;
 
 SELECT * FROM student;  -- cannot get deleted record after commit
 ```
+
+<h2 align="center">MySQL Stored Procedure</h2>
+
+MySQL Stored Procedure. A procedure (often called a stored procedure) is a collection of pre-compiled SQL statements stored inside the database. It is a subroutine or a subprogram in the regular computing language. A procedure always contains a name, parameter lists, and SQL statements.
+
+- A stored procedure is block of SQL Statements.
+- We can save stored procedure and can be reuse multiple times.
+- We can also pass parameters to a stored procedure.
+
+
+Procedure without Parameter :
+
+- set the delimiter to // to avoid confusion with the ; in the procedure body
+```sql
+delimiter //
+
+CREATE PROCEDURE SelectAllcustomers()
+ BEGIN
+    select * from customers;
+ END //
+
+delimiter ;
+```
+
+- To see the procedures 
+```sql
+SELECT ROUTINE_NAME
+FROM INFORMATION_SCHEMA.ROUTINES;
+```
+
+- To call the procedure 
+```sql
+call SelectAllcustomers();
+```
+
+MySQL procedure parameter has one of three modes:
+
+- IN parameter
+
+It is the default mode. It takes a parameter as input, such as an attribute. When we define it, the calling program has to pass an argument to the stored procedure. This parameter's value is always protected.
+
+- OUT parameters
+
+It is used to pass a parameter as output. Its value can be changed inside the stored procedure, and the changed (new) value is passed back to the calling program. It is noted that a procedure cannot access the OUT parameter's initial value when it starts.
+
+- INOUT parameters
+
+It is a combination of IN and OUT parameters. It means the calling program can pass the argument, and the procedure can modify the INOUT parameter, and then passes the new value back to the calling program.
+
+```sql
+delimiter //
+         
+CREATE PROCEDURE SelectAllcustomersByCity(IN mycity varchar(50))
+ BEGIN
+     SELECT * FROM customers WHERE city = mycity;
+ END //
+
+delimiter;
+
+call SelectAllcustomersBycity('NewYork');
+```
+
+```sql
+delimiter //
+
+CREATE PROCEDURE SelectAllcustomersByCityAndPin(IN mycity varchar(50), IN pcode varchar(15))
+ BEGIN
+     SELECT * FROM customers WHERE city = mycity AND postalCode = pcode;
+ END //
+ 
+delimiter ;
+
+call SelectAllcustomersByCityAndPin('NewYork', '060503' );                                                              I
+```
+
+```sql
+delimiter //
+           
+CREATE PROCEDURE get_order_by_cust(
+     IN cust_no INT,
+     OUT shipped INT,
+     OUT canceled INT,
+     OUT resolved INT,
+     OUT disputed INT)
+ BEGIN
+       -- shipped
+       SELECT count (*) INTO shipped FROM orders  WHERE customerNumber = cust_no AND status = 'Shipped';
+       
+       -- canceled
+       SELECT count (*) INTO canceled FROM orders WHERE customerNumber = cust_no AND status = 'Canceled';
+                                    
+       -- resolved                                     
+       SELECT count (*) INTO resolved FROM orders WHERE  customerNumber = cust_no  AND status = 'Resolved';
+       
+       -- disputed
+       SELECT count (*) INTO disputed FROM orders WHERE  customerNumber = cust_no  AND status = 'Disputed';
+ END //
+     
+delimiter ;
+
+call get_order_by_cust(141, @shipped, @canceled, @resolved, @disputed);
+select @shipped, @canceled, @resolved, @disputed;
+```
+
+
+
+
+```sql
+delimiter //
+
+CREATE PROCEDURE GetCustomershipping(
+     IN pCustomerNUmber INT,
+     OUT pShipping VARCHAR (50) )
+     
+BEGIN
+     -- create variable
+     DECLARE customerCountry VARCHAR (100);
+     
+ -- add customer country into variable    
+ SELECT country INTO customerCountry FROM customers WHERE customerNumber = pCustomerNUmber;
+
+     -- check customer country
+     CASE customerCountry 
+        -- if customer country 'USA' set '2-day Shipping'
+        WHEN 'USA' THEN
+            SET pShipping = '2-day Shipping';
+        
+        - if customer country 'Canada' set '3-day Shipping'
+        WHEN 'Canada' THEN
+            SET pShipping = '3-day Shipping';
+            
+        - else set '5-day Shipping'    
+        ELSE
+            SET pShipping = '5-day Shipping';
+        END CASE;
+        
+ END //
+ 
+delimiter ;
+
+call GetCustomershipping(112, @shipping);
+select @shipping;
+```
+
 
 
 
