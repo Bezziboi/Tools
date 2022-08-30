@@ -852,7 +852,7 @@ Procedure without Parameter :
 ```sql
 delimiter //
 
-CREATE PROCEDURE SelectAllcustomers()
+CREATE PROCEDURE SelectAllCustomers()
  BEGIN
     select * from customers;
  END //
@@ -868,7 +868,7 @@ FROM INFORMATION_SCHEMA.ROUTINES;
 
 - To call the procedure 
 ```sql
-call SelectAllcustomers();
+call SelectAllCustomers();
 ```
 
 MySQL procedure parameter has one of three modes:
@@ -888,27 +888,27 @@ It is a combination of IN and OUT parameters. It means the calling program can p
 ```sql
 delimiter //
          
-CREATE PROCEDURE SelectAllcustomersByCity(IN mycity varchar(50))
+CREATE PROCEDURE SelectAllCustomersByCity(IN mycity varchar(50))
  BEGIN
      SELECT * FROM customers WHERE city = mycity;
  END //
 
 delimiter;
 
-call SelectAllcustomersBycity('NewYork');
+call SelectAllCustomersBycity('NewYork');
 ```
 
 ```sql
 delimiter //
 
-CREATE PROCEDURE SelectAllcustomersByCityAndPin(IN mycity varchar(50), IN pcode varchar(15))
+CREATE PROCEDURE SelectAllCustomersByCityAndPin(IN mycity varchar(50), IN pcode varchar(15))
  BEGIN
      SELECT * FROM customers WHERE city = mycity AND postalCode = pcode;
  END //
  
 delimiter ;
 
-call SelectAllcustomersByCityAndPin('NewYork', '060503' );                                                              I
+call SelectAllCustomersByCityAndPin('NewYork', '060503' );                                                              I
 ```
 
 ```sql
@@ -963,11 +963,11 @@ BEGIN
         WHEN 'USA' THEN
             SET pShipping = '2-day Shipping';
         
-        - if customer country 'Canada' set '3-day Shipping'
+        =- if customer country 'Canada' set '3-day Shipping'
         WHEN 'Canada' THEN
             SET pShipping = '3-day Shipping';
             
-        - else set '5-day Shipping'    
+        =- else set '5-day Shipping'    
         ELSE
             SET pShipping = '5-day Shipping';
         END CASE;
