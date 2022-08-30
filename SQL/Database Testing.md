@@ -448,8 +448,18 @@ The MySQL sample database schema consists of the following tables:
 </tbody>
 </table>
 
-<h2 align="center"> <samp>Test Cases</samp></h2>
+<h3 align="center"> <samp>First test case</samp></h3>
+
+|TC ID|Title / Description                     |Steps                                                                                               |Expected Result                                                      |Actual Result|Test Data|Priority|Status|
+|-----|----------------------------------------|----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|-------------|---------|--------|------|
+|TC001|Check table presence in database schema |show tables;                                                                                        |Table Name should be displayed in the  list                          |             |NA       |P1      |PASS  |
+|TC002|Check table name conventions            |show tables;                                                                                        |Table names should be Single word. Table should not contains spaces. |             |NA       |P1      |PASS  |
+|TC003|Check number of columns in a table      |SELECT count(*) AS NumberOfColumns  FROM information_schema.columns WHERE table_name = 'customers'; |13                                                                   |             |NA       |P1      |PASS  |
+|TC004|Check column names in a table           |SELECT column_name FROM information_schema.columns WHERE table_name = 'customers';                  |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
+|TC005|Check data type of columns in table     |SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'customers';       |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
+|TC006|Check size of the columns in a table    |SELECT column_name, column_type FROM information_schema.columns WHERE table_name = 'customers';     |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
+|TC007|Check nulls fields in a table           |SELECT column_name, is_nullable FROM information_schema.columns WHERE table_name = 'customers';     |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
+|TC008|Check column keys in a table            |SELECT column_name, column_key FROM Information_schema.columns WHERE table_name = 'customers';       |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
 
 
-
-<p align="center"> <a href="https://github.com/Bezziboi/Tools/blob/main/checkLists%20%26%20testCases/SQL%20testCase_1.png" > <img src="https://user-images.githubusercontent.com/106346771/187048080-a4c6f44e-ef45-403c-96f7-4240afbd7920.png"> </a> </p>
+<p  align="right"><a href="https://github.com/Bezziboi/Tools/blob/main/checkLists%20%26%20testCases/SQL%20testCase_1.png" alt="bezziboi">PNG file for better view</a></p>
