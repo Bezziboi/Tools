@@ -450,18 +450,9 @@ The MySQL sample database schema consists of the following tables:
 
 <h3 align="left"> <samp>First test case</samp></h3>
 
-<p align="left"><a href="https://github.com/Bezziboi/Tools/blob/main/checkLists%20%26%20testCases/SQL%20testCase_1.png" alt="bezziboi">PNG file for better view</a></p>
+<p align="left"><a href="https://docs.google.com/spreadsheets/d/1y8sfJ_DfzmsGN_hqNbh_CuOMRpCBHd9OMoQ3X4cHtUY/edit?usp=sharing">Click to open Google sheets for better view</a></p>
 
-|TC ID|Title / Description                     |Steps                                                                                               |Expected Result                                                      |Actual Result|Test Data|Priority|Status|
-|-----|----------------------------------------|----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|-------------|---------|--------|------|
-|TC001|Check table presence in database schema |show tables;                                                                                        |Table Name should be displayed in the  list                          |             |NA       |P1      |PASS  |
-|TC002|Check table name conventions            |show tables;                                                                                        |Table names should be Single word. Table should not contains spaces. |             |NA       |P1      |PASS  |
-|TC003|Check number of columns in a table      |SELECT count(*) AS NumberOfColumns  FROM information_schema.columns WHERE table_name = 'customers'; |13                                                                   |             |NA       |P1      |PASS  |
-|TC004|Check column names in a table           |SELECT column_name FROM information_schema.columns WHERE table_name = 'customers';                  |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
-|TC005|Check data type of columns in table     |SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'customers';       |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
-|TC006|Check size of the columns in a table    |SELECT column_name, column_type FROM information_schema.columns WHERE table_name = 'customers';     |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
-|TC007|Check nulls fields in a table           |SELECT column_name, is_nullable FROM information_schema.columns WHERE table_name = 'customers';     |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
-|TC008|Check column keys in a table            |SELECT column_name, column_key FROM Information_schema.columns WHERE table_name = 'customers';       |As mentioned in the Database design                                  |             |NA       |P1      |PASS  |
+<p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187742796-091128a0-6489-4d31-a1f1-11340659d506.png"> </p>
 
 
 <h2 align="center"> <samp>Stored Procedure</samp></h2>
@@ -684,98 +675,9 @@ BEGIN
 delimiter ;
 ```
 
+<h3 align="left"> <samp> Second test case : Stored procedure </samp></h3>
+<p align="left"><a href="https://docs.google.com/spreadsheets/d/17rL3kR7YtHFyX3kLhEtNsh_Wy7WIIGT0gDcQUefwuRA/edit?usp=sharing">Click to open Google sheets for better view</a></p>
 
-
-
-
-
-
-<div style="overflow-x: scroll;">
-  
-<table>
-<thead>
-  <tr>
-    <th>TC ID</th>
-    <th>Title / Description</th>
-    <th>Steps</th>
-    <th width="600px">Test Query</th>
-    <th>Test Data</th>
-    <th>Expected Result</th>
-    <th>Actual Result</th>
-    <th>Priority</th>
-    <th>Status</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>TC001</td>
-    <td>Check stored procedures are exists indatabase .</td>
-    <td>SHOW PROCEDURE STATUS WHERE db = ' classicmodels ' ;orSHOW PROCEDURE STATUS WHERE Name = ' SelectAllCustomers ' ;</td>
-    <td>NA</td>
-    <td>NA</td>
-    <td>SP Name should be displayed inthe list</td>
-    <td></td>
-    <td>P1</td>
-    <td>PASS</td>
-  </tr>
-  <tr>
-    <td>TC002</td>
-    <td>Check Stored procedure" SelectAllCustomers " display all recordsfrom the " Customers " table</td>
-    <td>call SelectAllCustomers ( ) ;</td>
-    <td>SELECT * FROM customers ;</td>
-    <td>NA</td>
-    <td>Display all records from the" Customers " table</td>
-    <td></td>
-    <td>P1</td>
-    <td>PASS</td>
-  </tr>
-  <tr>
-    <td>TC003</td>
-    <td>Check Stored procedure" SelectAllCustomersByCity " by passingCityName as input parameter</td>
-    <td>call SelectAllCustomersByCity ( ' Singapore ' ) ;</td>
-    <td>SELECT * FROM customers WHERE city = ' Singapore ' ;</td>
-    <td>City Name : Singapore</td>
-    <td>Display Customers from aparticular City from the" Customers " table</td>
-    <td></td>
-    <td>P1</td>
-    <td>PASS</td>
-  </tr>
-  <tr>
-    <td>TC004</td>
-    <td>Check Stored procedure" SelectAllCustomersByCityAnd Pin " bypassing input parameters ' cityname ' and' pincode '</td>
-    <td>call SelectAllCustomersByCityAnd Pin ( ' Singapore ' , ' 079903 ' ) ;</td>
-    <td>SELECT * FROM Customers WHERE City = ' Singapore ' andpostalCode = ' 079903 ' ;</td>
-    <td>City Name SingaporePinCode : 079903</td>
-    <td>Display Customers from a particular City with a particular Postal Code from the " Customers " table</td>
-    <td></td>
-    <td>P1</td>
-    <td>PASS</td>
-  </tr>
-  <tr>
-    <td>TC005</td>
-    <td>Check Stored procedure" get_order_by_cust " by passing inputparameter ' custID '</td>
-    <td>callget_order_by_cust ( 141 , @ shipped , @ canceled , @ resolved , @ disputed ) ;SELECT @shipped , @canceled , @ resolved , @ disputed ;</td>
-    <td>select( SELECT count ( * ) as ' shipped ' FROM orders WHERE customerNumber = 141AND status = ' Shipped ' ) as Shipped ,( SELECT count ( * ) as ' canceled ' FROM orders WHERE customerNumber = 141AND status = ' Canceled ' ) as Canceled ,( SELECT count ( * ) as ' resolved ' FROM orders WHERE customerNumber = 141AND status = ' Resolved ' ) as Resolved ,( SELECT count ( * ) as ' disputed ' FROM orders WHERE customerNumber = 141AND status = ' Disputed ' ) as Disputed ;</td>
-    <td>CustID : 141</td>
-    <td>Accepts customer number andreturns the total number oforders that were shipped ,canceled , resolved , anddisputed .</td>
-    <td></td>
-    <td>P1</td>
-    <td>PASS</td>
-  </tr>
-  <tr>
-    <td>TC006</td>
-    <td>Check Stored procedure" GetCustomerShipping " by passing inputparameter ' custid '</td>
-    <td>1 ) CALL GetCustomerShipping ( 112 , @ shipping ) ;SELECT @shipping AS ShippingTime ;2 ) CALL GetCustomerShipping ( 260 , @shipping ) ;SELECT @shipping AS ShippingTime ;3 ) CALL GetCustomerShipping ( 353 , @ shipping ) ;SELECT @shipping AS Shipping Time ;</td>
-    <td>SELECT country ,CASEWHEN country = ' USA ' THEN ' 2 - day Shipping '&nbsp;&nbsp;WHEN country = ' Canada ' THEN ' 3 - day Shipping '&nbsp;&nbsp;ELSE ' 5 - day Shipping 'END as ShippingTimeFROM customers WHERE customerNumber = 112 ;</td>
-    <td>CustID : 112CustID : 260CustID : 353</td>
-    <td>ER1 : 2 - day ShippingER2 : 3 - day Shipping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ER3 : 5 - day Shipping</td>
-    <td></td>
-    <td>P1</td>
-    <td>PASS</td>
-  </tr>
-</tbody>
-</table>
-
-</div>
+<p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187744028-fa2684a8-9d0d-44fc-86bf-3035d8d86509.png"> </p>
 
 
