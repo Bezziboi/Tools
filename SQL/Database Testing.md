@@ -483,8 +483,8 @@ The MySQL sample database schema consists of the following tables:
 <table>
 <tbody>
   <tr>
-    <td>Stored procedure Name</td>
-    <td>SelectAllCustomers</td>
+    <td width="200px">Stored procedure Name</td>
+    <td width="600px">SelectAllCustomers</td>
   </tr>
   <tr>
     <td>Description</td>
@@ -516,8 +516,8 @@ delimiter ;
 <table>
 <tbody>
   <tr>
-    <td>Stored procedure Name</td>
-    <td>SelectAllCustomersByCity</td>
+    <td width="200px">Stored procedure Name</td>
+    <td width="600px">SelectAllCustomersByCity</td>
   </tr>
   <tr>
     <td>Description</td>
@@ -549,8 +549,8 @@ delimiter;
 <table>
 <tbody>
   <tr>
-    <td>Stored procedure Name</td>
-    <td>SelectAllCustomersByCityAndPin</td>
+    <td width="200px">Stored procedure Name</td>
+    <td width="600px">SelectAllCustomersByCityAndPin</td>
   </tr>
   <tr>
     <td>Description</td>
@@ -582,8 +582,8 @@ delimiter ;                                                         I
 <table>
 <tbody>
   <tr>
-    <td>Stored procedure Name</td>
-    <td>get_order_by_cust</td>
+    <td width="200px">Stored procedure Name</td>
+    <td width="600px">get_order_by_cust</td>
   </tr>
   <tr>
     <td>Description</td>
@@ -632,8 +632,8 @@ delimiter ;
 <table>
 <tbody>
   <tr>
-    <td>Stored procedure Name</td>
-    <td>GetCustomerShipping</td>
+    <td width="200px">Stored procedure Name</td>
+    <td width="600px">GetCustomerShipping</td>
   </tr>
   <tr>
     <td>Description</td>
@@ -683,3 +683,99 @@ BEGIN
  
 delimiter ;
 ```
+
+
+
+
+
+
+
+<div style="overflow-x: scroll;">
+  
+<table>
+<thead>
+  <tr>
+    <th>TC ID</th>
+    <th>Title / Description</th>
+    <th>Steps</th>
+    <th width="600px">Test Query</th>
+    <th>Test Data</th>
+    <th>Expected Result</th>
+    <th>Actual Result</th>
+    <th>Priority</th>
+    <th>Status</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>TC001</td>
+    <td>Check stored procedures are exists indatabase .</td>
+    <td>SHOW PROCEDURE STATUS WHERE db = ' classicmodels ' ;orSHOW PROCEDURE STATUS WHERE Name = ' SelectAllCustomers ' ;</td>
+    <td>NA</td>
+    <td>NA</td>
+    <td>SP Name should be displayed inthe list</td>
+    <td></td>
+    <td>P1</td>
+    <td>PASS</td>
+  </tr>
+  <tr>
+    <td>TC002</td>
+    <td>Check Stored procedure" SelectAllCustomers " display all recordsfrom the " Customers " table</td>
+    <td>call SelectAllCustomers ( ) ;</td>
+    <td>SELECT * FROM customers ;</td>
+    <td>NA</td>
+    <td>Display all records from the" Customers " table</td>
+    <td></td>
+    <td>P1</td>
+    <td>PASS</td>
+  </tr>
+  <tr>
+    <td>TC003</td>
+    <td>Check Stored procedure" SelectAllCustomersByCity " by passingCityName as input parameter</td>
+    <td>call SelectAllCustomersByCity ( ' Singapore ' ) ;</td>
+    <td>SELECT * FROM customers WHERE city = ' Singapore ' ;</td>
+    <td>City Name : Singapore</td>
+    <td>Display Customers from aparticular City from the" Customers " table</td>
+    <td></td>
+    <td>P1</td>
+    <td>PASS</td>
+  </tr>
+  <tr>
+    <td>TC004</td>
+    <td>Check Stored procedure" SelectAllCustomersByCityAnd Pin " bypassing input parameters ' cityname ' and' pincode '</td>
+    <td>call SelectAllCustomersByCityAnd Pin ( ' Singapore ' , ' 079903 ' ) ;</td>
+    <td>SELECT * FROM Customers WHERE City = ' Singapore ' andpostalCode = ' 079903 ' ;</td>
+    <td>City Name SingaporePinCode : 079903</td>
+    <td>Display Customers from a particular City with a particular Postal Code from the " Customers " table</td>
+    <td></td>
+    <td>P1</td>
+    <td>PASS</td>
+  </tr>
+  <tr>
+    <td>TC005</td>
+    <td>Check Stored procedure" get_order_by_cust " by passing inputparameter ' custID '</td>
+    <td>callget_order_by_cust ( 141 , @ shipped , @ canceled , @ resolved , @ disputed ) ;SELECT @shipped , @canceled , @ resolved , @ disputed ;</td>
+    <td>select( SELECT count ( * ) as ' shipped ' FROM orders WHERE customerNumber = 141AND status = ' Shipped ' ) as Shipped ,( SELECT count ( * ) as ' canceled ' FROM orders WHERE customerNumber = 141AND status = ' Canceled ' ) as Canceled ,( SELECT count ( * ) as ' resolved ' FROM orders WHERE customerNumber = 141AND status = ' Resolved ' ) as Resolved ,( SELECT count ( * ) as ' disputed ' FROM orders WHERE customerNumber = 141AND status = ' Disputed ' ) as Disputed ;</td>
+    <td>CustID : 141</td>
+    <td>Accepts customer number andreturns the total number oforders that were shipped ,canceled , resolved , anddisputed .</td>
+    <td></td>
+    <td>P1</td>
+    <td>PASS</td>
+  </tr>
+  <tr>
+    <td>TC006</td>
+    <td>Check Stored procedure" GetCustomerShipping " by passing inputparameter ' custid '</td>
+    <td>1 ) CALL GetCustomerShipping ( 112 , @ shipping ) ;SELECT @shipping AS ShippingTime ;2 ) CALL GetCustomerShipping ( 260 , @shipping ) ;SELECT @shipping AS ShippingTime ;3 ) CALL GetCustomerShipping ( 353 , @ shipping ) ;SELECT @shipping AS Shipping Time ;</td>
+    <td>SELECT country ,CASEWHEN country = ' USA ' THEN ' 2 - day Shipping '&nbsp;&nbsp;WHEN country = ' Canada ' THEN ' 3 - day Shipping '&nbsp;&nbsp;ELSE ' 5 - day Shipping 'END as ShippingTimeFROM customers WHERE customerNumber = 112 ;</td>
+    <td>CustID : 112CustID : 260CustID : 353</td>
+    <td>ER1 : 2 - day ShippingER2 : 3 - day Shipping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ER3 : 5 - day Shipping</td>
+    <td></td>
+    <td>P1</td>
+    <td>PASS</td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+
