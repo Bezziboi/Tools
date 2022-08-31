@@ -452,7 +452,8 @@ The MySQL sample database schema consists of the following tables:
 
 <p align="left"><a href="https://docs.google.com/spreadsheets/d/1y8sfJ_DfzmsGN_hqNbh_CuOMRpCBHd9OMoQ3X4cHtUY/edit?usp=sharing">Click to open Google sheets for better view</a></p>
 
-<p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187742796-091128a0-6489-4d31-a1f1-11340659d506.png"> </p>
+<p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187746724-8abc0110-10a4-456b-b8fe-44bbc11ca5ca.png"> </p>
+
 
 
 <h2 align="center"> <samp>Stored Procedure</samp></h2>
@@ -566,7 +567,7 @@ CREATE PROCEDURE SelectAllCustomersByCityAndPin(IN mycity varchar(50), IN pcode 
      SELECT * FROM customers WHERE city = mycity AND postalCode = pcode;
  END //
  
-delimiter ;                                                         I
+delimiter ;
 ```
 
 <h3 align="left"> <samp>Stored Procedure 4:</samp></h3>
