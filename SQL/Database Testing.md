@@ -767,3 +767,14 @@ END //
 
 delimiter ;
 ```
+
+<h3 align="left"> <samp> Third test case : Stored function </samp></h3>
+
+<p align="left"><a href="https://docs.google.com/spreadsheets/d/1sudO3v3yAsqIqXw2fMDVC-OOZ9jte_AmscULG975ZVY/edit?usp=sharing">Click to open Google sheets for better view</a></p>
+
+<p align="center"> <img src="https://user-images.githubusercontent.com/106346771/188014871-ee272ef6-24df-424c-a34a-870633626f21.png"> </p>
+
+
+
+
+
