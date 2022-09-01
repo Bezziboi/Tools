@@ -1061,7 +1061,7 @@ Stored Function in Stored Procedure
 ```sql
 delimiter //
 
-CREATE PROCEDURE GetCustomerLevel( IN customerNo INT, OUT customer Level VARCHAR (20) )
+CREATE PROCEDURE GetCustomerLevel( IN customerNo INT, OUT customerLevel VARCHAR (20) )
    
 BEGIN
 
@@ -1071,7 +1071,7 @@ BEGIN
     SELECT creditLimit INTO credit FROM customers WHERE customerNumber = customerNo;
 
     -- call the function
-   SET customer Level = CustomerLevel(credit);
+   SET customerLevel = CustomerLevel(credit);
    
 END //
 
