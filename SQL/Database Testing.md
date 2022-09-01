@@ -17,433 +17,433 @@ The MySQL sample database schema consists of the following tables:
 <h2 align="center"> <samp> Diagram of a Database </samp></h2>
 <p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187048686-1f7d7b4d-e75b-4b8b-a23b-4b1a8e37c523.png"> </p>
 
-<table class="tg">
+<table>
 <thead>
   <tr>
-    <th class="tg-0pky">Table Name</th>
-    <th class="tg-0pky">Columns</th>
-    <th class="tg-0pky">Data Type &amp; Size</th>
-    <th class="tg-0pky">Nulls</th>
-    <th class="tg-0pky">Keys</th>
+    <th>Table Name</th>
+    <th>Columns</th>
+    <th>Data Type &amp; Size</th>
+    <th>Nulls</th>
+    <th>Keys</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td class="tg-buh4"></td>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-7btt" rowspan="13">Customers</td>
-    <td class="tg-0pky">customerNumber</td>
-    <td class="tg-0pky">int</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky">PRI</td>
+    <td rowspan="13">Customers</td>
+    <td>customerNumber</td>
+    <td>int</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-btxf">customerName</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>customerName</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">contactLastName</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>contactLastName</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">contactFirstName</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>contactFirstName</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">phone</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>phone</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">addressLine1</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>addressLine1</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">addressLine2</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">YES</td>
-    <td class="tg-0pky"></td>
+    <td>addressLine2</td>
+    <td>varchar(50)</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">city</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>city</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">state</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">YES</td>
-    <td class="tg-0pky"></td>
+    <td>state</td>
+    <td>varchar(50)</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">postalCode</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">YES</td>
-    <td class="tg-btxf"></td>
+    <td>postalCode</td>
+    <td>varchar(50)</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">country</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>country</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">salesRepEmployeeNumber</td>
-    <td class="tg-btxf">int</td>
-    <td class="tg-btxf">YES</td>
-    <td class="tg-btxf">MUL</td>
+    <td>salesRepEmployeeNumber</td>
+    <td>int</td>
+    <td>YES</td>
+    <td>MUL</td>
   </tr>
   <tr>
-    <td class="tg-0pky">creditLimit</td>
-    <td class="tg-0pky">decimal(10,2)</td>
-    <td class="tg-0pky">YES</td>
-    <td class="tg-0pky"></td>
+    <td>creditLimit</td>
+    <td>decimal(10,2)</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-7btt" rowspan="8">Employees</td>
-    <td class="tg-0pky">employeeNumber</td>
-    <td class="tg-0pky">int</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky">PRI</td>
+    <td rowspan="8">Employees</td>
+    <td>employeeNumber</td>
+    <td>int</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-btxf">lastName</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>lastName</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">firstName</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>firstName</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">extension</td>
-    <td class="tg-btxf">varchar(10)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>extension</td>
+    <td>varchar(10)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">email</td>
-    <td class="tg-0pky">varchar(100)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>email</td>
+    <td>varchar(100)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">officeCode</td>
-    <td class="tg-btxf">varchar(10)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf">MUL</td>
+    <td>officeCode</td>
+    <td>varchar(10)</td>
+    <td>NO</td>
+    <td>MUL</td>
   </tr>
   <tr>
-    <td class="tg-0pky">reportsTo</td>
-    <td class="tg-0pky">int</td>
-    <td class="tg-0pky">YES</td>
-    <td class="tg-0pky">MUL</td>
+    <td>reportsTo</td>
+    <td>int</td>
+    <td>YES</td>
+    <td>MUL</td>
   </tr>
   <tr>
-    <td class="tg-btxf">jobTitle</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>jobTitle</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-zwlc" rowspan="9">Offices</td>
-    <td class="tg-btxf">officeCode</td>
-    <td class="tg-btxf">varchar(10)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf">PRI</td>
+    <td rowspan="9">Offices</td>
+    <td>officeCode</td>
+    <td>varchar(10)</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-0pky">city</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>city</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">phone</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>phone</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">addressLine1</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>addressLine1</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">addressLine2</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">YES</td>
-    <td class="tg-btxf"></td>
+    <td>addressLine2</td>
+    <td>varchar(50)</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">state</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">YES</td>
-    <td class="tg-0pky"></td>
+    <td>state</td>
+    <td>varchar(50)</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">country</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>country</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">postalCode</td>
-    <td class="tg-0pky">varchar(15)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>postalCode</td>
+    <td>varchar(15)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">territory</td>
-    <td class="tg-btxf">varchar(10)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>territory</td>
+    <td>varchar(10)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-if4e" rowspan="5">Orderdetails</td>
-    <td class="tg-btxf">orderNumber</td>
-    <td class="tg-btxf">int</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf">PRI</td>
+    <td rowspan="5">Orderdetails</td>
+    <td>orderNumber</td>
+    <td>int</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-0pky">productCode</td>
-    <td class="tg-0pky">varchar(15)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky">PRI</td>
+    <td>productCode</td>
+    <td>varchar(15)</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-btxf">quantityOrdered</td>
-    <td class="tg-btxf">int</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>quantityOrdered</td>
+    <td>int</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">priceEach</td>
-    <td class="tg-0pky">decimal(10,2)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>priceEach</td>
+    <td>decimal(10,2)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">orderLineNumber</td>
-    <td class="tg-btxf">smallint</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>orderLineNumber</td>
+    <td>smallint</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-zwlc" rowspan="7">Orders</td>
-    <td class="tg-btxf">orderNumber</td>
-    <td class="tg-btxf">int</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf">PRI</td>
+    <td rowspan="7">Orders</td>
+    <td>orderNumber</td>
+    <td>int</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-0pky">orderDate</td>
-    <td class="tg-0pky">date</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>orderDate</td>
+    <td>date</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">requiredDate</td>
-    <td class="tg-btxf">date</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>requiredDate</td>
+    <td>date</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">shippedDate</td>
-    <td class="tg-0pky">date</td>
-    <td class="tg-0pky">YES</td>
-    <td class="tg-0pky"></td>
+    <td>shippedDate</td>
+    <td>date</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">status</td>
-    <td class="tg-btxf">varchar(15)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>status</td>
+    <td>varchar(15)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">comments</td>
-    <td class="tg-0pky">text</td>
-    <td class="tg-0pky">YES</td>
-    <td class="tg-0pky"></td>
+    <td>comments</td>
+    <td>text</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">customerNumber</td>
-    <td class="tg-btxf">int</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf">MUL</td>
+    <td>customerNumber</td>
+    <td>int</td>
+    <td>NO</td>
+    <td>MUL</td>
   </tr>
   <tr>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-zwlc" rowspan="4">Payments</td>
-    <td class="tg-btxf">customerNumber</td>
-    <td class="tg-btxf">int</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf">PRI</td>
+    <td rowspan="4">Payments</td>
+    <td>customerNumber</td>
+    <td>int</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-0pky">checkNumber</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky">PRI</td>
+    <td>checkNumber</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-btxf">paymentDate</td>
-    <td class="tg-btxf">date</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>paymentDate</td>
+    <td>date</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">amount</td>
-    <td class="tg-0pky">decimal(10,2)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>amount</td>
+    <td>decimal(10,2)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
-    <td class="tg-btxf"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-7btt" rowspan="5">ProductLines</td>
-    <td class="tg-0pky">productLine</td>
-    <td class="tg-0pky">varchar(50)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky">PRI</td>
+    <td rowspan="5">ProductLines</td>
+    <td>productLine</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-btxf">textDescription</td>
-    <td class="tg-btxf">varchar(4000)</td>
-    <td class="tg-btxf">YES</td>
-    <td class="tg-btxf"></td>
+    <td>textDescription</td>
+    <td>varchar(4000)</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">htmlDescription</td>
-    <td class="tg-0pky">mediumtext</td>
-    <td class="tg-0pky">YES</td>
-    <td class="tg-0pky"></td>
+    <td>htmlDescription</td>
+    <td>mediumtext</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">image</td>
-    <td class="tg-btxf">mediumblob</td>
-    <td class="tg-btxf">YES</td>
-    <td class="tg-btxf"></td>
+    <td>image</td>
+    <td>mediumblob</td>
+    <td>YES</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-zwlc" rowspan="9">Products</td>
-    <td class="tg-btxf">productCode</td>
-    <td class="tg-btxf">varchar(15)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf">PRI</td>
+    <td rowspan="9">Products</td>
+    <td>productCode</td>
+    <td>varchar(15)</td>
+    <td>NO</td>
+    <td>PRI</td>
   </tr>
   <tr>
-    <td class="tg-0pky">productName</td>
-    <td class="tg-0pky">varchar(70)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>productName</td>
+    <td>varchar(70)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">productLine</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf">MUL</td>
+    <td>productLine</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td>MUL</td>
   </tr>
   <tr>
-    <td class="tg-0pky">productScale</td>
-    <td class="tg-0pky">varchar(10)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>productScale</td>
+    <td>varchar(10)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">productVendor</td>
-    <td class="tg-btxf">varchar(50)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>productVendor</td>
+    <td>varchar(50)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">productDescription</td>
-    <td class="tg-0pky">text</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>productDescription</td>
+    <td>text</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">quantityInStock</td>
-    <td class="tg-btxf">smallint</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>quantityInStock</td>
+    <td>smallint</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-0pky">buyPrice</td>
-    <td class="tg-0pky">decimal(10,2)</td>
-    <td class="tg-0pky">NO</td>
-    <td class="tg-0pky"></td>
+    <td>buyPrice</td>
+    <td>decimal(10,2)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-btxf">MSRP</td>
-    <td class="tg-btxf">decimal(10,2)</td>
-    <td class="tg-btxf">NO</td>
-    <td class="tg-btxf"></td>
+    <td>MSRP</td>
+    <td>decimal(10,2)</td>
+    <td>NO</td>
+    <td></td>
   </tr>
 </tbody>
 </table>
@@ -464,9 +464,9 @@ The MySQL sample database schema consists of the following tables:
 2) **Check stored procedure with valid input data**
 3) **Check stored procedure handle exceptions when you pass invalid input data**
 4) **Check stored procedure display results as expected**
-5) **Check stored procedure inserting data in proper table / s**
-6) **Check stored procedure updating data in proper table / s**
-7) **Check stored procedure deleting data from proper table / s**
+5) **Check stored procedure inserting data in proper table/s**
+6) **Check stored procedure updating data in proper table/s**
+7) **Check stored procedure deleting data from proper table/s**
 8) **Check calling stored procedure from another stored procedure**
 
 <h3 align="left"> <samp>So let's create some simple Stored Procedures</samp></h3>
@@ -682,3 +682,88 @@ delimiter ;
 <p align="center"> <img src="https://user-images.githubusercontent.com/106346771/187744028-fa2684a8-9d0d-44fc-86bf-3035d8d86509.png"> </p>
 
 
+<h2 align="center"> <samp>Stored Function</samp></h2>
+
+<h3 align="left"> <samp>Common Test Scenarios for Stored Function</samp></h3>
+
+1) **Check Stored Function exist in database**
+2) **Check Stored Function with valid input data**
+3) **Check Stored Function handle exceptions when you pass invalid input data**
+4) **Check Stored Function returns results as expected**
+5) **Check Stored Function not used insert/update/delete operations**
+6) **Check Stored Function used only select statements**
+7) **Check calling Stored Function from stored procedure**
+
+<h3 align="left"> <samp>Let's create some simple Stored Function</samp></h3>
+
+<table>
+<tbody>
+  <tr>
+    <td width="200px">Stored Function Name</td>
+    <td width="600px">CustomerLevel</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>Returns the customer level based on creditLimit</td>
+  </tr>
+  <tr>
+    <td>Input Parameters</td>
+    <td>creditLimit</td>
+  </tr>
+  <tr>
+    <td>Output Parameters</td>
+    <td>CustomerLevel</td>
+  </tr>
+</tbody>
+</table>
+
+
+```sql
+delimiter //
+
+CREATE FUNCTION CustomerLevel(credit DECIMAL(10, 2)) RETURNS VARCHAR(20)
+
+BEGIN
+
+    DECLARE customerLevel VARCHAR(20);
+    
+    IF credit > 50000 THEN
+       SET customerLevel = 'PLATINUM';
+       
+    ELSEIF (credit > = 10000 AND
+            credit < = 50000) THEN
+        SET customerLevel = 'GOLD';
+        
+    ELSEIF credit < 10000 THEN
+       SET customerLevel = 'SILVER';
+       
+    END IF;
+    
+    RETURN customerLevel;
+    
+END //
+
+delimiter ;
+```
+
+Stored Function in Stored Procedure
+
+```sql
+delimiter //
+
+CREATE PROCEDURE GetCustomerLevel( IN customerNo INT, OUT customerLevel VARCHAR (20) )
+   
+BEGIN
+
+   DECLARE credit DEC(10, 2) DEFAULT 0;
+   
+    -- get credit limit of a customer
+    SELECT creditLimit INTO credit FROM customers WHERE customerNumber = customerNo;
+
+    -- call the function
+   SET customerLevel = CustomerLevel(credit);
+   
+END //
+
+delimiter ;
+```
