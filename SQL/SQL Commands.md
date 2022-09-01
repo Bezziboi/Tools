@@ -908,7 +908,7 @@ CREATE PROCEDURE SelectAllCustomersByCityAndPin(IN mycity varchar(50), IN pcode 
  
 delimiter ;
 
-call SelectAllCustomersByCityAndPin('NewYork', '060503' );                                                              I
+call SelectAllCustomersByCityAndPin('NewYork', '060503' );
 ```
 
 ```sql
@@ -1010,5 +1010,70 @@ call InsertSupplierProduct(1, 3);
 call InsertsupplierProduct(1, 3); -- error message 'Duplicate keys error encountered'
 ```
 
+<h2 align="center">MySQL Stored Function</h2>
 
+A stored function is a special kind stored program that returns a single value.
 
+- Stored Procedure Vs Stored Function
+  - The stored function must return a value but in Stored Procedure it is optional.
+  - Even a procedure can return zero or n values.
+  - Functions can have only input parameters for it whereas Procedures can have input or output parameters.
+  - Functions can be called from Procedure whereas Procedures cannot be called from a Function.
+
+Stored Function 1: Returns the customer level based on creditLimit
+
+```sql
+delimiter //
+
+CREATE FUNCTION CustomerLevel(credit DECIMAL(10, 2)) RETURNS VARCHAR(20)
+
+BEGIN
+
+    DECLARE customerLevel VARCHAR(20);
+    
+    IF credit > 50000 THEN
+       SET customerLevel = 'PLATINUM';
+       
+    ELSEIF (credit > = 10000 AND
+            credit < = 50000) THEN
+        SET customerLevel = 'GOLD';
+        
+    ELSEIF credit < 10000 THEN
+       SET customerLevel = 'SILVER';
+       
+    END IF;
+    
+    RETURN customerLevel;
+    
+END //
+
+delimiter ;
+
+-- Shows all functions in 'classicmodels' database
+SHOW FUNCTION STATUS WHERE db = 'classicmodels';
+
+-- Select(use) function
+SELECT customerName, CustomerLevel(creditLimit) FROM customers;
+```
+
+Stored Function in Stored Procedure
+
+```sql
+delimiter //
+
+CREATE PROCEDURE GetCustomerLevel( IN customerNo INT, OUT customer Level VARCHAR (20) )
+   
+BEGIN
+
+   DECLARE credit DEC(10, 2) DEFAULT 0;
+   
+    -- get credit limit of a customer
+    SELECT creditLimit INTO credit FROM customers WHERE customerNumber = customerNo;
+
+    -- call the function
+   SET customer Level = CustomerLevel(credit);
+   
+END //
+
+delimiter ;
+```
