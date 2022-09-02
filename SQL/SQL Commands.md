@@ -1077,3 +1077,119 @@ END //
 
 delimiter ;
 ```
+
+
+<h2 align="center">MySQL Trigger</h2>
+
+A trigger is a set of SQL statements that reside in a system catalog
+
+It is a special type of stored procedure that is invoked automatically in response to an event
+
+Each trigger is associated with a table , which is activated on any DML statement such as INSERT , UPDATE , or DELETE
+
+A trigger is called a special procedure because it cannot be called directly like a stored procedure
+
+The main difference between the trigger and procedure is that **a trigger is called automatically when a data modification event** is made against a table
+
+A stored procedure **must be called explicitly**
+
+
+#### Types of Triggers in MySQL
+
+
+We can define the maximum six types of actions or events in the form of
+triggers :
+                                  
+- **Before Insert** : It is activated before the insertion of data into the table
+- **After Insert** : It is activated after the insertion of data into the table
+- **Before Update** : It is activated before the update of data in the table
+- **After Update** : It is activated after the update of the data in the table
+- **Before Delete** : It is activated before the data is removed from the table
+- **After Delete** : It is activated after the deletion of data from the table
+
+Trigger 1 - Type: Before Insert
+
+Description: Updates the total capacity in the WorkCenterStats table
+before a new work center is inserted into the WorkCenter table
+
+Let's create table first
+```sql
+CREATE TABLE WorkCenters(
+   id INT AUTO INCREMENT PRIMARY KEY,
+   name VARCHAR(100) NOT NULL,
+   capacity INT NOT NULL);
+   
+CREATE TABLE WorkCenterStats(
+   totalCapacity INT NOT NULL);
+```
+
+Creating trigger
+```sql
+delimiter //
+
+CREATE TRIGGER before_workcenters_insert BEFORE INSERT ON WorkCenters FOR EACH ROW
+
+BEGIN
+
+   DECLARE rowcount INT ;
+   
+   SELECT COUNT(*) INTO rowcount FROM WorkCenterstats;
+   IF rowcount > 0 THEN
+      UPDATE WorkCenterStats SET totalCapacity = totalCapacity + new.capacity;
+   ELSE
+      INSERT INTO WorkCenterstats(totalCapacity) VALUES(new.capacity);
+   END IF;
+   
+END //
+
+delimiter ;
+```
+
+Trigger 2 - Type: After Insert
+
+Description: Inserts a reminder into the reminders table if the birth date of the member is NULL
+
+Tables Creation
+
+```sql
+CREATE TABLE members(
+   id INT AUTO_INCREMENT,
+   name VARCHAR(100) NOT NULL,
+   email VARCHAR(255),
+   birthDate DATE,
+   PRIMARY KEY(id)
+   );
+   
+CREATE TABLE reminders(
+   id INT AUTO_INCREMENT,
+   memberId INT,
+   message VARCHAR(255) NOT NULL,
+   PRIMARY KEY(id, memberId)
+   );
+```
+   
+Creating trigger
+
+```sql
+delimiter //
+
+CREATE TRIGGER after_members_insert AFTER INSERT ON members FOR EACH ROW
+
+BEGIN
+
+   IF new.birthDate IS NULL THEN INSERT INTO reminders(memberId, message)
+      VALUES(new.id, CONCAT('Hi', new.name, ', please update your date of birth.')); 
+   END IF;
+   
+END //
+
+delimiter ;
+```
+   
+   
+   
+   
+   
+   
+   
+   
