@@ -968,3 +968,191 @@ delimiter ;
 </tbody>
 </table>
 
+
+### Trigger #3
+
+<table>
+<tbody>
+  <tr>
+    <td width="200px">Trigger Name</td>
+    <td width="600px">before_sales_update</td>
+  </tr>
+  <tr>
+    <td>Trigger Type</td>
+    <td>Before Update</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>If you update the value in the quantity column to a new value that is 3 times greater than the current value, the trigger raises an error and stops the update</td>
+  </tr>
+  <tr>
+    <td>Tables</td>
+    <td>sales</td>
+  </tr>
+</tbody>
+</table>
+
+Lets's create table and trigger
+
+Tables Creation
+
+```sql
+CREATE TABLE sales(
+    id INT AUTO_INCREMENT,
+    product VARCHAR (100) NOT NULL,
+    quantity INT NOT NULL DEFAULT 0,
+    fiscal Year SMALLINT NOT NULL,
+    fiscalMonth TINYINT NOT NULL,
+    CHECK (fiscalMonth >= 1 AND fiscalMonth <= 12),
+    CHECK(fiscalYear BETWEEN 2000 and 2050),
+    CHECK(quantity >= 0),
+    UNIQUE(product, fiscalYear, fiscalMonth),
+    PRIMARY KEY(id) );
+    
+INSERT INTO sales (product, quantity, fiscalYear, fiscalMonth) VALUES
+    ('2003 Harley - Davidson Eagle Drag Bike', 120, 2020, 1),
+    ('1969 Corvair Monza', 150, 2020, 1),
+    ('1970 Plymouth Hemi Cuda', 200, 2020, 1);
+```
+
+Creating trigger
+
+```sql
+delimiter //
+
+CREATE TRIGGER before_sales_update BEFORE UPDATE ON sales FOR EACH ROW
+
+BEGIN
+
+    DECLARE errorMessage VARCHAR(255);
+    
+    SET errorMessage = CONCAT('The new quantity', NEW.quantity,
+                              ' cannot be 3 times greater than the current quantity',
+                               OLD.quantity);
+    
+    IF new.quantity > old.quantity * 3 THEN
+       SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = errorMessage;
+    END IF;
+    
+END //
+
+delimiter ;
+```
+
+#### Test case #3
+
+<table>
+<thead>
+  <tr>
+    <th colspan="2">Testing trigger<br></th>
+    <th>Trigger 3 - Type: Before Update</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Steps</td>
+    <td>Description &amp; Query</td>
+    <td>Expected Result</td>
+  </tr>
+  <tr>
+    <td>Step1</td>
+    <td>Update the quantity of the row with id 1 to 150<br> UPDATE sales SET quantity = 150 WHERE id = 1;<br><br>Query data from the sales table to verify update<br> SELECT * FROM sales;</td>
+    <td>It should update sales table because the new quantity does not violate the rule.</td>
+  </tr>
+  <tr>
+    <td>Step2</td>
+    <td>Update the quantity of the row with id 1 to 500<br><br>UPDATE sales SET quantity = 500 WHERE id = 1;</td>
+    <td>Error Code : 1644. The new quantity 500 cannot be 3 times greater than the current quantity 150.<br><br>In this case, the trigger should found the new quantity caused a violation and raised an error.</td>
+  </tr>
+</tbody>
+</table>
+
+
+### Trigger #4
+
+<table>
+<tbody>
+  <tr>
+    <td width="200px">Trigger Name</td>
+    <td width="600px">after_sales_update</td>
+  </tr>
+  <tr>
+    <td>Trigger Type</td>
+    <td>After Update</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>If you update the value in the quantity column to a new value the trigger insert a new row to log the changes in the SalesChanges table</td>
+  </tr>
+  <tr>
+    <td>Tables</td>
+    <td>Sales</br>SalesChanges</td>
+  </tr>
+</tbody>
+</table>
+
+Lets's create table and trigger
+
+Tables Creation
+
+```sql
+CREATE TABLE SalesChanges(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    salesId INT,
+    beforeQuantity INT,
+    afterQuantity INT,
+    changedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    );
+```
+
+Creating trigger
+
+```sql
+delimiter //
+
+CREATE TRIGGER after_sales_update AFTER UPDATE ON sales FOR EACH ROW
+
+BEGIN
+
+    IF OLD.quantity <> new.quantity THEN
+        INSERT INTO SalesChanges (salesId, beforeQuantity, afterQuantity)
+        VALUES(old.id, old.quantity, new.quantity);
+    END IF;
+    
+END //
+
+delimiter ;
+```
+
+#### Test case #4
+
+<table>
+<thead>
+  <tr>
+    <th colspan="2">Testing trigger<br></th>
+    <th>Trigger 4-Type: After Update</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Steps</td>
+    <td>Description &amp; Query</td>
+    <td>Expected Result</td>
+  </tr>
+  <tr>
+    <td>Step1</td>
+    <td>Update the quantity of the row with id 1 to 350<br> UPDATE sales SET quantity = 350 WHERE id = 1;<br><br>Query data from the SalesChanges table to verify update<br> SELECT * FROM SalesChanges;</td>
+    <td>The trigger should triggered automatically.</td>
+  </tr>
+  <tr>
+    <td>Step2</td>
+    <td>Update the quantity of all 3 rows by increasing 10%<br><br>UPDATE Sales SET quantity = CAST(quantity * 1.1 AS UNSIGNED);</td>
+    <td>NA</td>
+  </tr>
+  <tr>
+    <td>Step3</td>
+    <td>Query data from the SalesChanges table<br><br>SELECT * FROM SalesChanges;</td>
+    <td>The trigger should fire three times because of the updates of the three rows</td>
+  </tr>
+</tbody>
+</table>
