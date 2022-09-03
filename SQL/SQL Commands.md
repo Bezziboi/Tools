@@ -1186,10 +1186,86 @@ END //
 delimiter ;
 ```
    
+Trigger 3 - Type: Before Update 
    
-   
-   
-   
-   
-   
-   
+Description: If you update the value in the quantity column to a new value that is 3 times greater than the current value, the trigger raises an error and stops the update 
+
+Tables Creation
+
+```sql
+CREATE TABLE sales(
+    id INT AUTO_INCREMENT,
+    product VARCHAR (100) NOT NULL,
+    quantity INT NOT NULL DEFAULT 0,
+    fiscal Year SMALLINT NOT NULL,
+    fiscalMonth TINYINT NOT NULL,
+    CHECK (fiscalMonth >= 1 AND fiscalMonth <= 12),
+    CHECK(fiscalYear BETWEEN 2000 and 2050),
+    CHECK(quantity >= 0),
+    UNIQUE(product, fiscalYear, fiscalMonth),
+    PRIMARY KEY(id) );
+    
+INSERT INTO sales (product, quantity, fiscalYear, fiscalMonth) VALUES
+    ('2003 Harley - Davidson Eagle Drag Bike', 120, 2020, 1),
+    ('1969 Corvair Monza', 150, 2020, 1),
+    ('1970 Plymouth Hemi Cuda', 200, 2020, 1);                       
+```
+
+Creating trigger
+
+```sql
+delimiter //
+
+CREATE TRIGGER before_sales_update BEFORE UPDATE ON sales FOR EACH ROW
+
+BEGIN
+
+    DECLARE errorMessage VARCHAR(255);
+    
+    SET errorMessage = CONCAT('The new quantity', NEW.quantity,
+                              ' cannot be 3 times greater than the current quantity',
+                               OLD.quantity);
+    
+    IF new.quantity > old.quantity * 3 THEN
+       SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = errorMessage;
+    END IF;
+    
+END //
+
+delimiter ;
+```
+
+Trigger 4 - Type: After Update
+
+Description: If you update the value in the quantity column to a new value the trigger insert a new row to log the changes in the SalesChanges table
+
+Tables Creation
+
+```sql
+CREATE TABLE SalesChanges(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    salesId INT,
+    beforeQuantity INT,
+    afterQuantity INT,
+    changedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    );
+```
+
+Creating trigger
+
+```sql
+delimiter //
+
+CREATE TRIGGER after_sales_update AFTER UPDATE ON sales FOR EACH ROW
+
+BEGIN
+
+    IF OLD.quantity <> new.quantity THEN
+        INSERT INTO SalesChanges (salesId, beforeQuantity, afterQuantity)
+        VALUES(old.id, old.quantity, new.quantity);
+    END IF;
+    
+END //
+
+delimiter ;
+```
