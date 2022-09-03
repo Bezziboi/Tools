@@ -775,6 +775,196 @@ delimiter ;
 <p align="center"> <img src="https://user-images.githubusercontent.com/106346771/188014871-ee272ef6-24df-424c-a34a-870633626f21.png"> </p>
 
 
+<h2 align="center"> <samp>Trigger Testing</samp> </h2>
 
+### Trigger #1
+<table>
+<tbody>
+  <tr>
+    <td width="200px">Trigger Name</td>
+    <td width="600px">before_workcenters_insert</td>
+  </tr>
+  <tr>
+    <td>Trigger Type</td>
+    <td>Before Insert</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>Updates the total capacity in the WorkCenterStats table before a new work center is inserted into the WorkCenter table:</td>
+  </tr>
+  <tr>
+    <td>Tables</td>
+    <td>WorkCenters</br> WorkCenterStats</td>
+  </tr>
+</tbody>
+</table>
 
+Lets's create table and trigger
+
+Tables Creation
+
+```sql
+CREATE TABLE WorkCenters(
+   id INT AUTO INCREMENT PRIMARY KEY,
+   name VARCHAR(100) NOT NULL,
+   capacity INT NOT NULL);
+   
+CREATE TABLE WorkCenterStats(
+   totalCapacity INT NOT NULL);
+```
+Creating trigger
+
+```sql
+delimiter //
+
+CREATE TRIGGER before_workcenters_insert BEFORE INSERT ON WorkCenters FOR EACH ROW
+
+BEGIN
+
+   DECLARE rowcount INT ;
+   
+   SELECT COUNT(*) INTO rowcount FROM WorkCenterstats;
+   IF rowcount > 0 THEN
+      UPDATE WorkCenterStats SET totalCapacity = totalCapacity + new.capacity;
+   ELSE
+      INSERT INTO WorkCenterstats(totalCapacity) VALUES(new.capacity);
+   END IF;
+   
+END //
+
+delimiter ;
+```
+
+#### Test case #1
+
+<table>
+<thead>
+  <tr>
+    <th colspan="2">Testing trigger</th>
+    <th>Trigger 1-Type: Before Insert</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Steps</td>
+    <td>Description &amp; Query</td>
+    <td>Expected Result</td>
+  </tr>
+  <tr>
+    <td>Step1</td>
+    <td  width="500px">Insert a new row into WorkCenters table:<br><br>INSERT INTO WorkCenters(name, capacity)<br>VALUES('Mold Machine', 100);</td>
+    <td  width="500px">NA</td>
+  </tr>
+  <tr>
+    <td>Step2</td>
+    <td>Query data from the WorkCenterStats table:<br><br>SELECT * FROM WorkCenterstats;</td>
+    <td>totalCapacity<br>100</td>
+  </tr>
+  <tr>
+    <td>Step3</td>
+    <td>Insert a new work center:<br><br>INSERT INTO WorkCenters(name, capacity)<br>VALUES('Packing', 200);</td>
+    <td>NA</td>
+  </tr>
+  <tr>
+    <td>Step4</td>
+    <td>Finally query data from the WorkCenterStats table<br><br>SELECT * FROM WorkCenterStats;</td>
+    <td>totalCapacity<br>300</td>
+  </tr>
+</tbody>
+</table>
+
+### Trigger #2
+
+<table>
+<tbody>
+  <tr>
+    <td width="200px">Trigger Name</td>
+    <td width="600px">after_members_insert</td>
+  </tr>
+  <tr>
+    <td>Trigger Type</td>
+    <td>After Insert</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>Inserts a reminder into the reminders table if the birth date of the member is NULL</td>
+  </tr>
+  <tr>
+    <td>Tables</td>
+    <td>members</br> reminders</td>
+  </tr>
+</tbody>
+</table>
+
+Lets's create table and trigger
+
+Tables Creation
+
+```sql
+CREATE TABLE members(
+   id INT AUTO_INCREMENT,
+   name VARCHAR(100) NOT NULL,
+   email VARCHAR(255),
+   birthDate DATE,
+   PRIMARY KEY(id)
+   );
+   
+CREATE TABLE reminders(
+   id INT AUTO_INCREMENT,
+   memberId INT,
+   message VARCHAR(255) NOT NULL,
+   PRIMARY KEY(id, memberId)
+   );
+```
+
+Creating trigger
+
+```sql
+delimiter //
+
+CREATE TRIGGER after_members_insert AFTER INSERT ON members FOR EACH ROW
+
+BEGIN
+
+   IF new.birthDate IS NULL THEN INSERT INTO reminders(memberId, message)
+      VALUES(new.id, CONCAT('Hi', new.name, ', please update your date of birth.')); 
+   END IF;
+   
+END //
+
+delimiter ;
+```
+
+#### Test case #2
+
+<table>
+<thead>
+  <tr>
+    <th colspan="2">Testing trigger<br></th>
+    <th>Trigger 2-Type: After Insert</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Steps</td>
+    <td>Description &amp; Query</td>
+    <td>Expected Result</td>
+  </tr>
+  <tr>
+    <td>Step1</td>
+    <td width="500px">Insert 2 rows into members table:<br><br>INSERT INTO members(name, email, birthDate)<br>VALUES('Bezzi', 'bezzi@example.com', NULL);<br>INSERT INTO members(name, email, birthDate)<br>VALUES('Begli', 'begli@example.com', '1999-03-06');</td>
+    <td width="500px">NA</td>
+  </tr>
+  <tr>
+    <td>Step2</td>
+    <td>Query data from the members table:<br><br>SELECT * FROM members;</td>
+    <td>Table should contain 2 records, one of the record birthdate value should be NULL.</td>
+  </tr>
+  <tr>
+    <td>Step3</td>
+    <td>Finally query data from the reminders table:<br><br>SELECT * FROM reminders;</td>
+    <td>Message<br><br>Hi Bezzi, please update your date of birth.</td>
+  </tr>
+</tbody>
+</table>
 
