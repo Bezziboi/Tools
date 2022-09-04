@@ -1156,3 +1156,176 @@ delimiter ;
   </tr>
 </tbody>
 </table>
+
+
+### Trigger #5
+
+<table>
+<tbody>
+  <tr>
+    <td width="200px">Trigger Name</td>
+    <td width="600px">before_salaries_delete</td>
+  </tr>
+  <tr>
+    <td>Trigger Type</td>
+    <td>Before Delete</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>Inserts a new row into the SalaryArchives table before a row from the Salaries table is deleted</td>
+  </tr>
+  <tr>
+    <td>Tables</td>
+    <td>salaries</br>SalaryArchives</td>
+  </tr>
+</tbody>
+</table>
+
+Lets's create table and trigger
+
+Tables Creation
+
+```sql
+CEREATE TABLE Salaries(
+    employeeNumber INT PRIMARY KEY,
+    validFrom DATE NOT NULL,
+    salary DECIMAL(12, 2) NOT NULL DEFAULT 0);
+
+INSERT INTO salaries(employeeNumber, validFrom, salary)
+VALUES
+    (1002, '2000-01-01', 50000),
+    (1056, '2000-01-01', 60000),
+    (1076, '2000-01-01', 70000);
+    
+CREATE TABLE SalaryArchives(
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   employeeNumber INT,
+   validFrom DATE NOT NULL,
+   salary DEC(12, 2) NOT NULL DEFAULT 0,
+   deletedAt TIMESTAMP DEFAULT NOW() );
+```
+
+Creating trigger
+
+```sql
+delimiter //
+
+CREATE TRIGGER before_salaries_delete BEFORE DELETE ON salaries FOR EACH ROW
+
+BEGIN
+
+    INSERT INTO SalaryArchives(employeeNumber, validFrom, salary)
+    VALUES (OLD.employeeNumber, OLD.validFrom, OLD.salary);
+    
+END //
+
+delimiter ;
+```
+
+#### Test case #5
+
+<table>
+<thead>
+  <tr>
+    <th colspan="2">Testing trigger<br></th>
+    <th>Trigger 5-Type: Before Delete</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Steps</td>
+    <td>Description &amp; Query</td>
+    <td>Expected Result</td>
+  </tr>
+  <tr>
+    <td>Step1</td>
+    <td>Delete the row from salaries table<br>DELETE FROM salaries WHERE employeeNumber = 1002;<br><br>Query the data from SalaryArchives table<br>SELECT * FROM SalaryArchives;<br></td>
+    <td>The trigger should invoke and insert a new row into the SalaryArchives table</td>
+  </tr>
+  <tr>
+    <td>Step2</td>
+    <td>Delete all the rows from salaries table<br>DELETE FROM salaries;<br><br>Finally, query the data from SalaryArchives table<br>SELECT * FROM SalaryArchives;</td>
+    <td>The trigger should trigger 2 times because the DELETE statement deleted two rows from the Salaries table</td>
+  </tr>
+</tbody>
+</table>
+
+### Trigger #6
+
+<table>
+<tbody>
+  <tr>
+    <td width="200px">Trigger Name</td>
+    <td width="600px">after_salaries_delete</td>
+  </tr>
+  <tr>
+    <td>Trigger Type</td>
+    <td>After Delete</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>Updates the total salary in the Salary Budgets table after a row is deleted from the Salaries table</td>
+  </tr>
+  <tr>
+    <td>Tables</td>
+    <td>Salaries</br>SalaryBudgets</td>
+  </tr>
+</tbody>
+</table>
+
+Lets's create table and trigger
+
+Tables Creation
+
+```sql
+CREATE TABLE Salaries(
+    employeeNumber INT PRIMARY KEY,
+    validFrom DATE NOT NULL,
+    salary DECIMAL(12, 2) NOT NULL DEFAULT 0);
+    
+INSERT INTO salaries(employeeNumber, validFrom, salary)
+VALUES
+    (1002, '2000-01-01' , 50000 ),
+    (1056, '2000-01-01' , 60000 ),
+    (1076, '2000-01-01' , 70000 );
+
+CREATE TABLE SalaryBudgets(total DECIMAL(15, 2) NOT NULL);
+INSERT INTO SalaryBudgets(total) SELECT SUM(salary) FROM Salaries;
+```
+
+Creating trigger
+
+```sql
+CREATE TRIGGER after_salaries_delete AFTER DELETE ON Salaries FOR EACH ROW
+UPDATE SalaryBudgets SET total = total - OLD.salary;
+```
+
+#### Test case #6
+
+<table>
+<thead>
+  <tr>
+    <th colspan="2">Testing trigger<br></th>
+    <th>Trigger 6-Type: After Delete</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Steps</td>
+    <td>Description &amp; Query</td>
+    <td>Expected Result</td>
+  </tr>
+  <tr>
+    <td>Step1</td>
+    <td>Delete the row from salaries table<br>DELETE FROM salaries WHERE employeeNumber = 1002;<br><br>Query salary from SalaryBudgets table<br>SELECT * FROM SalaryBudgets;</td>
+    <td>In the output, the total should be reduced by the deleted salary</td>
+  </tr>
+  <tr>
+    <td>Step2</td>
+    <td>Delete all the rows from salaries table<br>DELETE FROM salaries;<br><br>Finally, query the total from SalaryBudgets table<br>SELECT * FROM SalaryBudgets;</td>
+    <td>The trigger updated the total to zero</td>
+  </tr>
+</tbody>
+</table>
+
+<p align="left"><a href="https://docs.google.com/spreadsheets/d/1wGYzBTkbPWNhe6Ugw65Peu3IvHq-w8YsNqPSmONbado/edit?usp=sharing">⬆ Click to open all Trigger test cases in Google sheets for better view</a></p>
