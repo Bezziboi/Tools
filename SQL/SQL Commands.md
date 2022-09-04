@@ -1269,3 +1269,82 @@ END //
 
 delimiter ;
 ```
+
+Trigger 5 - Type: Before Delete
+
+Description: Inserts a new row into the SalaryArchives table before a row from the Salaries table is deleted
+
+Tables Creation
+
+```sql
+CEREATE TABLE Salaries(
+    employeeNumber INT PRIMARY KEY,
+    validFrom DATE NOT NULL,
+    salary DECIMAL(12, 2) NOT NULL DEFAULT 0);
+
+INSERT INTO salaries (employeeNumber, validFrom, salary)
+VALUES
+    (1002, '2000-01-01', 50000),
+    (1056, '2000-01-01', 60000),
+    (1076, '2000-01-01', 70000);
+    
+CREATE TABLE SalaryArchives(
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   employeeNumber INT,
+   validFrom DATE NOT NULL,
+   salary DEC(12, 2) NOT NULL DEFAULT 0,
+   deletedAt TIMESTAMP DEFAULT NOW() );
+```
+
+Creating trigger
+
+```sql
+delimiter //
+
+CREATE TRIGGER before_salaries_delete BEFORE DELETE ON salaries FOR EACH ROW
+
+BEGIN
+
+    INSERT INTO SalaryArchives(employeeNumber, validFrom, salary)
+    VALUES (OLD.employeeNumber, OLD.validFrom, OLD.salary);
+    
+END //
+
+delimiter ;
+```
+
+Trigger 6 - Type: After Delete
+
+Description: Updates the total salary in the Salary Budgets table after a row is deleted from the Salaries table.
+
+Tables Creation
+
+```sql
+CREATE TABLE Salaries(
+    employeeNumber INT PRIMARY KEY,
+    validFrom DATE NOT NULL,
+    salary DECIMAL(12, 2) NOT NULL DEFAULT 0);
+    
+INSERT INTO salaries(employeeNumber, validFrom, salary)
+VALUES
+    (1002, '2000-01-01' , 50000 ),
+    (1056, '2000-01-01' , 60000 ),
+    (1076, '2000-01-01' , 70000 );
+
+CREATE TABLE SalaryBudgets(total DECIMAL(15, 2) NOT NULL);
+INSERT INTO SalaryBudgets(total) SELECT SUM(salary) FROM Salaries;
+```
+
+Creating trigger
+
+```sql
+CREATE TRIGGER after_salaries_delete AFTER DELETE ON Salaries FOR EACH ROW
+UPDATE SalaryBudgets SET total = total - OLD.salary;
+```
+
+
+
+
+
+
+
